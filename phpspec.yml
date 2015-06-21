@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Sugar
+        psr4_prefix: Sugar
+        src_path: app

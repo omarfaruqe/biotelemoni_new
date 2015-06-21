@@ -12,24 +12,37 @@ use View;
 use Sugar\User;
 use Validator;
 
-class FileController extends CmsController {
-	public function __construct(){
-		parent::__construct();
-		View::share('section', 'files');
-	}
+class FileController extends CmsController
+{
+    public function __construct()
+    {
+        parent::__construct();
+        View::share('section', 'files');
+    }
 
-	/**
-	 * Retrieve all ingredient
-	 * @return Collection
-	 */
+    /**
+     * Retrieve all ingredient
+     * @return Collection
+     */
 
-	public function index(){
-
-		$paginator = File::where('user_id', '=', Auth::user()->id)->paginate(20);
-		$file_list = collect($paginator->items());
-		$data = compact('paginator', 'file_list');
-		return view('cms.files.index',$data);
-	}
+    public function index()
+    {
+        $admin=null;
+        foreach(Auth::user()->roles as $role){
+            $admin = $role->name;
+        }
+        if($admin == 'admin')
+        {
+            $paginator = File::paginate(20);
+        }
+        else
+        {
+            $paginator = File::where('user_id', '=', Auth::user()->id)->paginate(20);
+        }
+        $file_list = collect($paginator->items());
+        $data = compact('paginator', 'file_list');
+        return view('cms.files.index', $data);
+    }
 
     public function create()
     {
@@ -39,16 +52,16 @@ class FileController extends CmsController {
     public function store(Request $request)
     {
         $input = [];
-        if($request->file('file')) {
+        if ($request->file('file')) {
             $file = $request->file('file');
             $validator = Validator::make(
                 [
-                    'file'      => $file,
+                    'file' => $file,
                     'extension' => strtolower($file->getClientOriginalExtension()),
                 ],
                 [
-                    'file'          => 'required',
-                    'extension'      => 'required|in:csv',
+                    'file' => 'required',
+                    'extension' => 'required|in:csv',
                 ]
             );
 
@@ -69,40 +82,40 @@ class FileController extends CmsController {
             $input['name'] = $name;
             $input['user_id'] = Auth::user()->id;
             $result = File::create(['name' => $name,
-                 'user_id' => Auth::user()->id]);
+                'user_id' => Auth::user()->id]);
             \Session::flash('flash_message', 'File has been uploaded.');
-            return redirect('admin/ingredients');
+            return redirect('admin/files');
 
         } else {
             \Session::flash('error_message', 'You have to upload a file');
-            return redirect('admin/ingredients/create');
+            return redirect('admin/files/create');
         }
     }
-        
-        public function delete($file) {
-            if(!empty($file->name))
-            {
-                unlink(User::uploadFilePath() . $file->name);
-                File::find($file->id)->delete();
-           
-                 \Session::flash('flash_message', 'Your File has been deleted');
-		 return redirect('admin/files');
-            }else {
-                \Session::flash('error_message', 'Your file is not deleted');
-		return redirect('admin/files');
-            }
-	}
-        
-        public function download($file_obj)
-        {
-            $file= public_path(). "/files/upload/". $file_obj->name;
-            $headers = array(
-                'Content-Type: application/csv',
-                'Content-Disposition:attachment; filename="test.csv"',
-                'Content-Transfer-Encoding:binary',
-                'Content-Length:'.filesize($file),
-            );
-            return Response::download($file, 'output.csv');
+
+    public function delete($file)
+    {
+        if (!empty($file->name)) {
+            unlink(User::uploadFilePath() . $file->name);
+            File::find($file->id)->delete();
+
+            \Session::flash('flash_message', 'Your File has been deleted');
+            return redirect('admin/files');
+        } else {
+            \Session::flash('error_message', 'Your file is not deleted');
+            return redirect('admin/files');
         }
+    }
+
+    public function download($file_obj)
+    {
+        $file = public_path() . "/files/upload/" . $file_obj->name;
+        $headers = array(
+            'Content-Type: application/csv',
+            'Content-Disposition:attachment; filename="test.csv"',
+            'Content-Transfer-Encoding:binary',
+            'Content-Length:' . filesize($file),
+        );
+        return Response::download($file, 'output.csv');
+    }
 
 }

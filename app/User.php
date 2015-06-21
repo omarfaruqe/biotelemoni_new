@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Zizaco\Entrust\Contracts\EntrustUserInterface;
 use Sugar\Permission;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends AppModel implements AuthenticatableContract, CanResetPasswordContract, EntrustUserInterface {
 
@@ -31,6 +32,16 @@ class User extends AppModel implements AuthenticatableContract, CanResetPassword
 	 * @var string
 	 */
 	protected $table = 'users';
+
+
+    use SoftDeletes;
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
 
 	/**
 	 * The attributes that are mass assignable.

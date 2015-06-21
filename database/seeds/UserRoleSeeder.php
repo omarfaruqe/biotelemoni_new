@@ -42,20 +42,20 @@ class UserRoleSeeder extends Seeder {
 			// Create site roles
 			$admin = new Role();
 			$admin->name = Role::ADMIN;
-			$admin->display_name = 'Site Administrator';
+			$admin->display_name = 'Administrator';
 			$admin->description = 'User with full access to site functionality.';
 			$admin->save();
 
 			$editor = new Role();
-			$editor->name = Role::EDITOR;
-			$editor->display_name = 'Editor';
-			$editor->description = 'Curator able to modify and publish files.';
+			$editor->name = Role::MERCHANT;
+			$editor->display_name = 'Merchant';
+			$editor->description = 'Merchant able to upload and modify files.';
 			$editor->save();
 
 			$validator = new Role();
-			$validator->name = Role::VALIDATOR;
-			$validator->display_name = 'Validator';
-			$validator->description = 'Contributer assisting with validating submitted files.';
+			$validator->name = Role::GUEST;
+			$validator->display_name = 'Guest';
+			$validator->description = 'Guest able to upload and modify files.';
 			$validator->save();
 
 			$roles = collect([$admin, $editor, $validator])->keyBy('name');
@@ -83,31 +83,6 @@ class UserRoleSeeder extends Seeder {
 			$edit_users->description = 'Can add, edit and delete other users. Can assign roles.';
 			$edit_users->save();
 
-			// Products
-			$view_products = new Permission();
-			$view_products->name = 'view-products';
-			$view_products->display_name = 'View products';
-			$view_products->description = 'Can inspect and view product details.';
-			$view_products->save();
-
-			$edit_products = new Permission();
-			$edit_products->name = 'edit-products';
-			$edit_products->display_name = 'Edit Products';
-			$edit_products->description = 'Can edit basic product fields.';
-			$edit_products->save();
-
-			$edit_products_adv = new Permission();
-			$edit_products_adv->name = 'edit-products-advanced';
-			$edit_products_adv->display_name = 'Edit Products Advanced';
-			$edit_products_adv->description = 'Can edit advanced product fields.';
-			$edit_products_adv->save();
-
-			$publish_products = new Permission();
-			$publish_products->name = 'publish-products';
-			$publish_products->display_name = 'Publish Products';
-			$publish_products->description = 'Can publish, unpublish and delete products.';
-			$publish_products->save();
-
 			// Ingredients
 			$view_ingredients = new Permission();
 			$view_ingredients->name = 'view-ingredients';
@@ -121,52 +96,24 @@ class UserRoleSeeder extends Seeder {
 			$edit_ingredients->description = 'Can download and delete.';
 			$edit_ingredients->save();
 
-			// Categories and Groups
-			$view_categories = new Permission();
-			$view_categories->name = 'view-categories';
-			$view_categories->display_name = 'View Categories';
-			$view_categories->description = 'Can view Schedule-M categories and groups.';
-			$view_categories->save();
-
-			$edit_categories = new Permission();
-			$edit_categories->name = 'edit-categories';
-			$edit_categories->display_name = 'Edit Categories';
-			$edit_categories->description = 'Can edit Schedule M categories and groups.';
-			$edit_categories->save();
-
 
 			// Assign Permissions to Roles
 			$validator->attachPermissions([
 				$edit_profile,
-				$view_products,
-				$edit_products,
-				$view_ingredients,
-				$view_categories,
+				$view_ingredients
 			]);
 			$editor->attachPermissions([
 				$edit_profile,
 				$view_users,
-				$view_products,
-				$edit_products,
-				$edit_products_adv,
-				$publish_products,
 				$view_ingredients,
-				$edit_ingredients,
-				$view_categories,
-				$edit_categories,
+				$edit_ingredients
 			]);
 			$admin->attachPermissions([
 				$edit_profile,
 				$view_users,
 				$edit_users,
-				$view_products,
-				$edit_products,
-				$edit_products_adv,
-				$publish_products,
 				$view_ingredients,
-				$edit_ingredients,
-				$view_categories,
-				$edit_categories,
+				$edit_ingredients
 			]);
 
 			// Reassign users roles

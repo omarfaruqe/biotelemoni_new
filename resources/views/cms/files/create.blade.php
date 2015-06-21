@@ -2,12 +2,12 @@
 @section('header')
     <h1>
         File
-        <small>Create</small>
+        <small>Upload</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{route('admin.ingredients')}}"><i class="fa fa-users"></i> File</a></li>
-        <li><i class="fa fa-user-plus"></i> Create</li>
+        <li><a href="{{route('admin.files')}}"><i class="fa fa-users"></i> File</a></li>
+        <li><i class="fa fa-user-plus"></i> Upload</li>
     </ol>
 @endsection
 @section('content')
@@ -22,7 +22,7 @@
                 <div class="box-body">
                     <div class="box-body">
                         {!! Form::open(['method'=>'POST','files' => 'true','class' => 'form-horizontal','role'=>'form', 'route' =>
-                        ['admin.ingredients.store']]) !!}
+                        ['admin.files.store']]) !!}
                         @include('errors.form_error')
 
                         <div class="panel panel-default">

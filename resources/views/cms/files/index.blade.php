@@ -21,7 +21,7 @@
                     <h3>
                         @if(Auth::user()->can('edit-ingredients'))
                             <a href="{{route('admin.files.create')}}" class="btn btn-primary btn-sm pull-right"><i
-                                        class="fa fa-user-plus"></i> Create</a>
+                                        class="fa fa-user-plus"></i> Upload</a>
                         @endif
                     </h3>
                 </div>
@@ -33,6 +33,7 @@
                         <tr role="row">
                             <th>File Name</th>
                             <th>Created By</th>
+                            <th>Created At</th>
                             @if(Auth::user()->can('edit-ingredients') || Auth::user()->can('view-ingredients'))
                                 <th style="width:25%">Action</th>
                             @endif
@@ -50,6 +51,9 @@
                                         {{$file->user->name}}
                                     </td>
                                     <td>
+                                        {{$file->created_at}}
+                                    </td>
+                                    <td>
                                         @if(Auth::user()->can('edit-ingredients'))
                                             <a href="{{route('admin.files.download',$file->id)}}"
                                                class="btn btn-info btn-xs"><i
@@ -58,14 +62,14 @@
 
                                         @if(Auth::user()->can('edit-ingredients'))
                                             <a href="{{route('admin.files.delete',$file->id)}}" onclick="return confirm('Are you sure you want to delete this file?');"
-                                               class="btn btn-danger btn-xs"><i class="fa fa-eye"></i> Delete</a>
+                                               class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete</a>
                                         @endif
                                     </td>
                                 </tr>
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="3">You have no uploaded file</td>
+                                <td colspan="5">You have no uploaded file</td>
                             </tr>
                         @endif
                         </tbody>
@@ -74,6 +78,7 @@
                         <tr>
                             <th>File Name</th>
                             <th>Created By</th>
+                            <th>Created At</th>
                             @if(Auth::user()->can('edit-ingredients') || Auth::user()->can('view-ingredients'))
                                 <th>Action</th>
                             @endif

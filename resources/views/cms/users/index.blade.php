@@ -50,6 +50,8 @@
                                     @if(Auth::user()->can('edit-users'))
                                         <a href="{{route('admin.users.edit',$user->id)}}"
                                            class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o"></i> Edit</a>
+                                        <a href="{{route('admin.users.delete',$user->id)}}"
+                                           class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o"></i> Delete</a>
                                     @endif
                                 </td>
                             </tr>

@@ -5,8 +5,8 @@ use Zizaco\Entrust\EntrustRole;
 class Role extends EntrustRole
 {
 	const ADMIN = 'admin';
-	const EDITOR = 'editor';
-	const VALIDATOR = 'validator';
+	const MERCHANT = 'merchant';
+	const GUEST = 'guest';
 
 	/**
      * Indicates if the IDs are auto-incrementing.

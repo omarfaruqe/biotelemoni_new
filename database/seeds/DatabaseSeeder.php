@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use database\seeds\UserTableSeeder;
 
 class DatabaseSeeder extends Seeder {
 
@@ -16,10 +15,75 @@ class DatabaseSeeder extends Seeder {
 		Model::unguard();
                 $this->call('UserRoleSeeder');
                 $this->call('UserTableSeeder');
-		// $this->call('ProductCategorySeeder');
-		// $this->call('ProductGroupSeeder');
-		// $this->call('ProductSeeder');
-		// $this->call('IngredientSeeder');
 	}
+
+}
+
+class UserTableSeeder extends Seeder {
+
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run() {
+
+        Sugar\User::create( [
+            'email' => 'imran@pyramidpayments.com',
+            'password' => Hash::make( 'password' ),
+            'name' => 'Imran hossian',
+        ] );
+
+        Sugar\User::create( [
+            'email' => 'ypbo@pyramidpayments.com',
+            'password' => Hash::make( 'password' ),
+            'name' => 'Ypbo',
+        ] );
+
+        Sugar\User::create( [
+            'email' => 'yplo@pyramidpayments.com',
+            'password' => Hash::make( 'password' ),
+            'name' => 'Yplo',
+        ] );
+
+        Sugar\User::create( [
+            'email' => 'medisure@pyramidpayments.com',
+            'password' => Hash::make( 'password' ),
+            'name' => 'medisure',
+        ] );
+
+        Sugar\User::create( [
+            'email' => 'myhealth@pyramidpayments.com',
+            'password' => Hash::make( 'password' ),
+            'name' => 'myhealth',
+        ] );
+
+        Sugar\User::create( [
+            'email' => 'john@pyramidpayments.com',
+            'password' => Hash::make( 'password' ),
+            'name' => 'John',
+        ] );
+
+
+        $users = Sugar\User::all();
+
+        $admin = \Sugar\Role::where('name', '=', 'admin')->first();
+        $merchant = \Sugar\Role::where('name', '=', 'merchant')->first();
+        $guest = \Sugar\Role::where('name', '=', 'guest')->first();
+        $last = count($users)-1;
+        $total_user = count($users);
+        $i=0;
+        foreach($users as $key=>$user){
+            if($user->email == 'imran@pyramidpayments.com') {
+                $user->attachRole($admin);
+            } else if($user->email == 'john@pyramidpayments.com') {
+                $user->attachRole($guest);
+            } else{
+                $user->attachRole($merchant);
+            }
+        }
+
+
+    }
 
 }

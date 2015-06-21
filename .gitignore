@@ -2,7 +2,10 @@
 /node_modules
 .env
 .DS_Store
+.idea
 .sass_cache
 /public/files/avatar/
+/public/files/upload/
 ~$*
 /nbproject/private/
+

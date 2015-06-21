@@ -55,7 +55,7 @@ return [
 		'mysql' => [
 			'driver'    => 'mysql',
 			'host'      => env('DB_HOST', 'localhost'),
-			'database'  => env('DB_DATABASE', 'tj'),
+			'database'  => env('DB_DATABASE', 'pp'),
 			'username'  => env('DB_USERNAME', 'root'),
 			'password'  => env('DB_PASSWORD', '5408'),
 			'charset'   => 'utf8',
@@ -90,7 +90,7 @@ return [
 		'pgsql' => [
 			'driver'   => 'pgsql',
 			'host'     => env('DB_HOST', 'localhost'),
-			'database' => env('DB_DATABASE', 'tj'),
+			'database' => env('DB_DATABASE', 'pp'),
 			'username' => env('DB_USERNAME', 'root'),
 			'password' => env('DB_PASSWORD', '5408'),
 			'charset'  => 'utf8',

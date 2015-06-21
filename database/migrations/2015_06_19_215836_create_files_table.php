@@ -17,6 +17,7 @@ class CreateFilesTable extends Migration {
 			$table->char('id',36)->primary();
             $table->char('user_id', 36);
             $table->text('name');
+            $table->bigInteger('download_counter')->default(0);
 			$table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
 		});

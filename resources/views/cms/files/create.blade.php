@@ -36,6 +36,9 @@
                                     {!! form::file('file',null,['class' => 'form-control']) !!}
                                 </div>
                             </div>
+
+
+
                         </div>
 
                         <div class="form-group">

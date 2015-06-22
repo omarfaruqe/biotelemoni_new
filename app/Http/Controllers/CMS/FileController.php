@@ -95,11 +95,19 @@ class FileController extends CmsController
     public function delete($file)
     {
         if (!empty($file->name)) {
-            unlink(User::uploadFilePath() . $file->name);
-            File::find($file->id)->delete();
 
-            \Session::flash('flash_message', 'Your File has been deleted');
-            return redirect('admin/files');
+            $file_path = User::uploadFilePath() . $file->name;
+            if (file_exists($file_path)) {
+                unlink(User::uploadFilePath() . $file->name);
+                File::find($file->id)->delete();
+                \Session::flash('flash_message', 'Your File has been deleted');
+                return redirect('admin/files');
+            }
+            else
+            {
+                 \Session::flash('flash_message', 'Your File has been deleted');
+                return redirect('admin/files');
+            }
         } else {
             \Session::flash('error_message', 'Your file is not deleted');
             return redirect('admin/files');
@@ -116,7 +124,6 @@ class FileController extends CmsController
             'Content-Length:' . filesize($file_name),
         );
         $input['download_counter']=$file->download_counter+1;
-
         File::where('id', $file->id)->update(['download_counter' => $file->download_counter+1]);
 
         return Response::download($file_name, 'output.csv');

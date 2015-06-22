@@ -40,8 +40,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'CMS']
 
         Route::get('users/{cms_user}/edit', ['as' => 'admin.users.edit', 'uses' => 'UserController@edit']);
         Route::put('users/{cms_user}', ['as' => 'admin.users.update', 'uses' => 'UserController@update']);
-
-        Route::delete('users/{cms_user}', ['as' => 'admin.users.delete', 'uses' => 'UserController@delete']);
+        Route::get('users/{cms_user}/delete', ['as' => 'admin.users.delete', 'uses' => 'UserController@delete']);
     });
 
     Route::group(['before' => 'perm:view-users'], function () {

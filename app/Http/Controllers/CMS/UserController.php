@@ -246,4 +246,11 @@ class UserController extends CmsController {
 
 		return $result;
 	}
+
+    /*public function delete($user)
+    {
+        User::find($user->id)->delete();
+        \Session::flash('flash_message', 'User has been deleted');
+        return redirect('admin.users');
+    }*/
 }

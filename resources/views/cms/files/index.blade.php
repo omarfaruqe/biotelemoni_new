@@ -32,10 +32,11 @@
                         <thead>
                         <tr role="row">
                             <th>File Name</th>
-                            <th>Created By</th>
-                            <th>Created At</th>
+                            <th>Uploaded By</th>
+                            <th>Uploaded At</th>
+                            <th style="width:18%">Download count</th>
                             @if(Auth::user()->can('edit-ingredients') || Auth::user()->can('view-ingredients'))
-                                <th style="width:25%">Action</th>
+                                <th style="width:18%">Action</th>
                             @endif
                         </tr>
                         </thead>
@@ -52,6 +53,9 @@
                                     </td>
                                     <td>
                                         {{$file->created_at}}
+                                    </td>
+                                    <td>
+                                        {{$file->download_counter}}
                                     </td>
                                     <td>
                                         @if(Auth::user()->can('edit-ingredients'))
@@ -77,8 +81,9 @@
                         <tfoot>
                         <tr>
                             <th>File Name</th>
-                            <th>Created By</th>
-                            <th>Created At</th>
+                            <th>Uploaded By</th>
+                            <th>Uploaded At</th>
+                            <th>Download count</th>
                             @if(Auth::user()->can('edit-ingredients') || Auth::user()->can('view-ingredients'))
                                 <th>Action</th>
                             @endif

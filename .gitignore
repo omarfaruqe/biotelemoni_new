@@ -1,6 +1,4 @@
-/vendor
 /node_modules
-.env
 .DS_Store
 .idea
 .sass_cache

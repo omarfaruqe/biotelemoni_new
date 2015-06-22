@@ -104,7 +104,6 @@ class UserRoleSeeder extends Seeder {
 			]);
 			$editor->attachPermissions([
 				$edit_profile,
-				$view_users,
 				$view_ingredients,
 				$edit_ingredients
 			]);

@@ -106,16 +106,20 @@ class FileController extends CmsController
         }
     }
 
-    public function download($file_obj)
+    public function download($file)
     {
-        $file = public_path() . "/files/upload/" . $file_obj->name;
+        $file_name = public_path() . "/files/upload/" . $file->name;
         $headers = array(
             'Content-Type: application/csv',
             'Content-Disposition:attachment; filename="test.csv"',
             'Content-Transfer-Encoding:binary',
-            'Content-Length:' . filesize($file),
+            'Content-Length:' . filesize($file_name),
         );
-        return Response::download($file, 'output.csv');
+        $input['download_counter']=$file->download_counter+1;
+
+        File::where('id', $file->id)->update(['download_counter' => $file->download_counter+1]);
+
+        return Response::download($file_name, 'output.csv');
     }
 
 }

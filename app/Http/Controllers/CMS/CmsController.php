@@ -13,12 +13,12 @@ use View;
 class CmsController extends Controller {
 
 	public function __construct(){
-		View::share('section', 'dashboard');
+		View::share('section', 'files');
 	}
 
 	public function dashboard(){
-               
-		return view('cms.dashboard.dashboard');
+              return redirect('admin/files');
+            //return view('cms.dashboard.dashboard');
 	}
 
 	public function styleGuide(){

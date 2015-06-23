@@ -48,7 +48,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'CMS']
         Route::get('users/{cms_user}', ['as' => 'admin.users.show', 'uses' => 'UserController@show']);
     });
 
-    // Ingredients
+    // Batch Files
     Route::group(['before' => 'perm:view-ingredients'], function () {
         Route::get('files/', ['as' => 'admin.files', 'uses' => 'FileController@index']);
         Route::get('files/create', ['as' => 'admin.files.create', 'uses' => 'FileController@create']);
@@ -62,6 +62,36 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'CMS']
         Route::get('files/{cms_file}/edit', ['as' => 'admin.files.edit', 'uses' => 'FileController@edit']);
         Route::put('files/{cms_file}', ['as' => 'admin.files.update', 'uses' => 'FileController@update']);
         Route::get('files/{cms_file}/delete', ['as' => 'admin.files.delete', 'uses' => 'FileController@delete']);
+
+    });
+    
+     // Response Files
+    Route::group(['before' => 'perm:view-ingredients'], function () {
+        Route::get('responses/', ['as' => 'admin.response', 'uses' => 'ResponseController@index']);
+        Route::get('responses/create', ['as' => 'admin.responses.create', 'uses' => 'ResponseController@create']);
+        Route::post('responses', ['as' => 'admin.responses.store', 'uses' => 'ResponseController@store']);
+       });
+
+    Route::group(['before' => 'perm:edit-ingredients'], function () {
+        Route::get('responses/{cms_file}/download', ['as' => 'admin.responses.download', 'uses' => 'ResponseController@download']);
+        Route::get('responses/{cms_file}/edit', ['as' => 'admin.responses.edit', 'uses' => 'ResponseController@edit']);
+        Route::put('responses/{cms_file}', ['as' => 'admin.responses.update', 'uses' => 'ResponseController@update']);
+        Route::get('responses/{cms_file}/delete', ['as' => 'admin.responses.delete', 'uses' => 'ResponseController@delete']);
+
+    });
+    
+     // Return Files
+    Route::group(['before' => 'perm:view-ingredients'], function () {
+        Route::get('return/', ['as' => 'admin.return', 'uses' => 'ReturnController@index']);
+        Route::get('return/create', ['as' => 'admin.return.create', 'uses' => 'ReturnController@create']);
+        Route::post('return', ['as' => 'admin.return.store', 'uses' => 'ReturnController@store']);
+       });
+
+    Route::group(['before' => 'perm:edit-ingredients'], function () {
+        Route::get('return/{cms_file}/download', ['as' => 'admin.return.download', 'uses' => 'ResponseController@download']);
+        Route::get('return/{cms_file}/edit', ['as' => 'admin.return.edit', 'uses' => 'ResponseController@edit']);
+        Route::put('return/{cms_file}', ['as' => 'admin.return.update', 'uses' => 'ResponseController@update']);
+        Route::get('return/{cms_file}/delete', ['as' => 'admin.return.delete', 'uses' => 'ResponseController@delete']);
 
     });
 });

@@ -6,4 +6,7 @@
 /public/files/upload/
 ~$*
 /nbproject/private/
+/vendor
+/config
+.env
 

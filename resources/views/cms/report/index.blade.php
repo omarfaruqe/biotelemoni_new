@@ -1,12 +1,12 @@
 @extends('templates.cms')
 @section('header')
     <h1>
-        Batch Uploaded 
+        File
         <small>Index</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li><i class="fa fa-file-o"></i> Batch Uploads</li>
+        <li><i class="fa fa-file-text"></i> Return </li>
     </ol>
 @endsection
 @section('content')
@@ -16,7 +16,7 @@
         <div class="row">
             <div class="box col-xs-12">
                 <div class="box-header">
-                    <h3>All Batch Uploaded Files</h3>
+                    <h3>All Return Files</h3>
 
                     <h3>
                         @if(Auth::user()->can('edit-ingredients'))

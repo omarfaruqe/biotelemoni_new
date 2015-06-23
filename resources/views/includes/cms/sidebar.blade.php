@@ -19,15 +19,27 @@
 		<!-- sidebar menu: : style can be found in sidebar.less -->
 		<ul class="sidebar-menu">
 			<li class="header">MAIN NAVIGATION</li>
-			<li {!!$section=='dashboard' ? 'class="active"' : ''!!}>
-				<a href="{{route('admin.dashboard')}}">
-					<i class="fa fa-dashboard"></i> <span>Dashboard</span></i>
-				</a>
-			</li>
+			
 			@if (Auth::user()->can('view-ingredients'))
 			<li {!!$section=='files' ? 'class="active"' : ''!!}>
 				<a href="{{route('admin.files')}}">
-					<i class="fa fa-flask"></i> <span>File</span></i>
+					<i class="fa fa-file-o"></i> <span>Batch upload</span></i>
+				</a>
+			</li>
+			@endif
+                        
+                        @if (Auth::user()->can('view-ingredients'))
+			<li {!!$section=='response' ? 'class="active"' : ''!!}>
+				<a href="{{route('admin.response')}}">
+					<i class="fa fa-file-archive-o"></i> <span>Response</span></i>
+				</a>
+			</li>
+			@endif
+                        
+                        @if (Auth::user()->can('view-ingredients'))
+			<li {!!$section=='return' ? 'class="active"' : ''!!}>
+				<a href="{{route('admin.return')}}">
+					<i class="fa fa-file-text"></i> <span>Return</span></i>
 				</a>
 			</li>
 			@endif

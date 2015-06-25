@@ -19,7 +19,7 @@
                     <h3>All Batch Uploaded Files</h3>
 
                     <h3>
-                        @if(Auth::user()->can('edit-ingredients'))
+                        @if(Auth::user()->can('delete-download-batch-files'))
                             <a href="{{route('admin.files.create')}}" class="btn btn-primary btn-sm pull-right"><i
                                         class="fa fa-upload"></i> Upload</a>
                         @endif
@@ -34,8 +34,9 @@
                             <th>File Name</th>
                             <th>Uploaded By</th>
                             <th>Uploaded At</th>
+                            <th>Status</th>
                             <th style="width:18%">Download count</th>
-                            @if(Auth::user()->can('edit-ingredients') || Auth::user()->can('view-ingredients'))
+                            @if(Auth::user()->can('delete-download-batch-files') || Auth::user()->can('view-batch-files'))
                                 <th style="width:18%">Action</th>
                             @endif
                         </tr>
@@ -55,16 +56,19 @@
                                         {{$file->created_at}}
                                     </td>
                                     <td>
+                                        {{$file->status}}
+                                    </td>
+                                    <td>
                                         {{$file->download_counter}}
                                     </td>
                                     <td>
-                                        @if(Auth::user()->can('edit-ingredients'))
+                                        @if(Auth::user()->can('delete-download-batch-files'))
                                             <a href="{{route('admin.files.download',$file->id)}}"
                                                class="btn btn-info btn-xs"><i
                                                         class="fa fa-eye"></i> Download</a>
                                         @endif
 
-                                        @if(Auth::user()->can('edit-ingredients'))
+                                        @if(Auth::user()->can('delete-download-batch-files'))
                                             <a href="{{route('admin.files.delete',$file->id)}}" onclick="return confirm('Are you sure you want to delete this file?');"
                                                class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete</a>
                                         @endif
@@ -83,8 +87,9 @@
                             <th>File Name</th>
                             <th>Uploaded By</th>
                             <th>Uploaded At</th>
+                            <th>Status</th>
                             <th>Download count</th>
-                            @if(Auth::user()->can('edit-ingredients') || Auth::user()->can('view-ingredients'))
+                            @if(Auth::user()->can('delete-download-batch-files') || Auth::user()->can('view-batch-files'))
                                 <th>Action</th>
                             @endif
                         </tr>

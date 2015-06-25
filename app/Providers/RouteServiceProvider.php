@@ -59,9 +59,12 @@ class RouteServiceProvider extends ServiceProvider {
 			throw new CmsNotFound('The requested entity was not found.');
 		};
 
-		$router->patterns(['cms_file', 'cms_user'], $uuid_pattern);
+		$router->patterns(['cms_batch_file','cms_response_file','cms_return_file','cms_report', 'cms_user'], $uuid_pattern);
 		$router->model('cms_user','\Sugar\User', $cms_model_not_found);
-		$router->model('cms_file','\Sugar\File', $cms_model_not_found);
+		$router->model('cms_batch_file','\Sugar\File', $cms_model_not_found);
+                $router->model('cms_response_file','\Sugar\Response', $cms_model_not_found);
+                $router->model('cms_return_file','\Sugar\ReturnFile', $cms_model_not_found);
+                $router->model('cms_report','\Sugar\Report', $cms_model_not_found);
 	}
 
 	/**

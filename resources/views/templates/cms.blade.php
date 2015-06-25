@@ -118,5 +118,6 @@
 <script src="{{ asset('skins/adminLTE/dist/js/pages/dashboard.js') }}" type="text/javascript"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('skins/adminLTE/dist/js/demo.js') }}" type="text/javascript"></script>
+ <script src="https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>
 </body>
 </html>

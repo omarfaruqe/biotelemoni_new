@@ -4,9 +4,10 @@
 .sass_cache
 /public/files/avatar/
 /public/files/upload/
+/public/files/
 ~$*
 /nbproject/private/
 /vendor
-/config
+/config/database.php
 .env
 

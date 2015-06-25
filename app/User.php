@@ -14,7 +14,7 @@ class User extends AppModel implements AuthenticatableContract, CanResetPassword
 	use Authenticatable, CanResetPassword, EntrustUserTrait;
 
 	const AVATAR_DIR = '/files/avatar/';
-        const UPLOAD_FILE_DIR = '/files/upload/';
+        const UPLOAD_FILE_DIR = '/files/batch_file/';
        
 	public static function avatarPath(){
 		return public_path() . self::AVATAR_DIR;

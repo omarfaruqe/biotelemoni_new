@@ -3,7 +3,7 @@
 namespace Sugar\Http\Controllers\CMS;
 
 use Illuminate\Support\Facades\Auth;
-use Sugar\File;
+use Sugar\Report;
 use Sugar\Http\Requests;
 use Sugar\Http\Controllers\Controller;
 use Response;
@@ -26,7 +26,10 @@ class ReportController extends CmsController {
 	 */
 	public function index()
 	{
-		//
+            $paginator = Report::paginate(20);
+            $report_list = collect($paginator->items());
+            $data = compact('paginator', 'report_list');
+            return view('cms.report.index', $data);
 	}
 
 	/**
@@ -36,7 +39,7 @@ class ReportController extends CmsController {
 	 */
 	public function create()
 	{
-		//
+            return view('cms.report.create');
 	}
 
 	/**
@@ -44,11 +47,47 @@ class ReportController extends CmsController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+            $this->validate($request,
+                    [
+                            'title' => 'required|max:255',
+                            'description' => 'required'
+                    ]);
+            $input = $request->all();
+            $input['description'] = strip_tags($input['description']);
+            $input['user_id'] = Auth::user()->id;
+            Report::create($input);
+            
+            \Session::flash('flash_message', 'Payout report has beed created');
+            return redirect()->route('admin.reports');
 	}
+        
+        public function edit($report)
+        {
+            return view('cms.report.edit', compact('report'));
+        }
 
+
+        public function update($report, Request $request)
+        {
+            $this->validate($request,
+                    [
+                            'title' => 'required|max:255',
+                            'description' => 'required'
+                    ]);
+            $input = $request->all();
+            $input['description'] = strip_tags($input['description']);
+            $report->update($input);
+            
+            \Session::flash('flash_message', 'Report has been updated.');
+            return redirect()->route('admin.reports');
+        }
+
+        public function download()
+        {
+            dd("gg");
+        }
 	
 
 }

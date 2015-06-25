@@ -19,8 +19,8 @@
                     <h3>All Response Files</h3>
 
                     <h3>
-                        @if(Auth::user()->can('edit-ingredients'))
-                            <a href="{{route('admin.files.create')}}" class="btn btn-primary btn-sm pull-right"><i
+                        @if(Auth::user()->can('upload-response-files'))
+                            <a href="{{route('admin.responses.create')}}" class="btn btn-primary btn-sm pull-right"><i
                                         class="fa fa-upload"></i> Upload</a>
                         @endif
                     </h3>
@@ -35,7 +35,7 @@
                             <th>Uploaded By</th>
                             <th>Uploaded At</th>
                             <th style="width:18%">Download count</th>
-                            @if(Auth::user()->can('edit-ingredients') || Auth::user()->can('view-ingredients'))
+                           @if(Auth::user()->can('download-response-files') || Auth::user()->can('delete-response-files'))
                                 <th style="width:18%">Action</th>
                             @endif
                         </tr>
@@ -58,14 +58,14 @@
                                         {{$file->download_counter}}
                                     </td>
                                     <td>
-                                        @if(Auth::user()->can('edit-ingredients'))
-                                            <a href="{{route('admin.files.download',$file->id)}}"
+                                        @if(Auth::user()->can('download-response-files'))
+                                            <a href="{{route('admin.responses.download',$file->id)}}"
                                                class="btn btn-info btn-xs"><i
                                                         class="fa fa-eye"></i> Download</a>
                                         @endif
 
-                                        @if(Auth::user()->can('edit-ingredients'))
-                                            <a href="{{route('admin.files.delete',$file->id)}}" onclick="return confirm('Are you sure you want to delete this file?');"
+                                        @if(Auth::user()->can('delete-response-files'))
+                                            <a href="{{route('admin.responses.delete',$file->id)}}" onclick="return confirm('Are you sure you want to delete this file?');"
                                                class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete</a>
                                         @endif
                                     </td>
@@ -84,7 +84,7 @@
                             <th>Uploaded By</th>
                             <th>Uploaded At</th>
                             <th>Download count</th>
-                            @if(Auth::user()->can('edit-ingredients') || Auth::user()->can('view-ingredients'))
+                            @if(Auth::user()->can('download-response-files') || Auth::user()->can('delete-response-files'))
                                 <th>Action</th>
                             @endif
                         </tr>

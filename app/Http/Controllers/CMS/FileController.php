@@ -39,6 +39,7 @@ class FileController extends CmsController
         {
             $paginator = File::where('user_id', '=', Auth::user()->id)->paginate(20);
         }
+       
         $file_list = collect($paginator->items());
         $data = compact('paginator', 'file_list');
         return view('cms.files.index', $data);
@@ -74,15 +75,13 @@ class FileController extends CmsController
             $name = time() . '-' . $file->getClientOriginalName();
 
             $input['name'] = $name;
+            $input['status'] = 'New batch';
             $input['user_id'] = Auth::user()->id;
-            $path = public_path() . '/files/upload/';
-
+            $path = File::uploadBatchFilePath();
             // Moves file to folder on server
-            $file->move($path, $name);
-            $input['name'] = $name;
-            $input['user_id'] = Auth::user()->id;
+            $file->move($path, $name);            
             $result = File::create(['name' => $name,
-                'user_id' => Auth::user()->id]);
+                'user_id' => Auth::user()->id, 'status'=>$input['status'],]);
             \Session::flash('flash_message', 'File has been uploaded.');
             return redirect('admin/files');
 
@@ -116,7 +115,7 @@ class FileController extends CmsController
 
     public function download($file)
     {
-        $file_name = public_path() . "/files/upload/" . $file->name;
+        $file_name = User::uploadFilePath() . $file->name;
         $headers = array(
             'Content-Type: application/csv',
             'Content-Disposition:attachment; filename="test.csv"',

@@ -49,51 +49,72 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'CMS']
     });
 
     // Batch Files
-    Route::group(['before' => 'perm:view-ingredients'], function () {
+    Route::group(['before' => 'perm:view-batch-files'], function () {
         Route::get('files/', ['as' => 'admin.files', 'uses' => 'FileController@index']);
         Route::get('files/create', ['as' => 'admin.files.create', 'uses' => 'FileController@create']);
         Route::post('files', ['as' => 'admin.files.store', 'uses' => 'FileController@store']);
-        //Route::post('ingredients/delete', ['as' => 'admin.ingredients.delete', 'uses' => 'IngredientController@delete'])->where('cms_ingredient','[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}');
-        //Route::get('ingredients/{cms_file}', ['as' => 'admin.ingredients.show', 'uses' => 'IngredientController@show']);
     });
 
-    Route::group(['before' => 'perm:edit-ingredients'], function () {
-        Route::get('files/{cms_file}/download', ['as' => 'admin.files.download', 'uses' => 'FileController@download']);
-        Route::get('files/{cms_file}/edit', ['as' => 'admin.files.edit', 'uses' => 'FileController@edit']);
-        Route::put('files/{cms_file}', ['as' => 'admin.files.update', 'uses' => 'FileController@update']);
-        Route::get('files/{cms_file}/delete', ['as' => 'admin.files.delete', 'uses' => 'FileController@delete']);
+    Route::group(['before' => 'perm:delete-download-batch-files'], function () {
+        Route::get('files/{cms_batch_file}/download', ['as' => 'admin.files.download', 'uses' => 'FileController@download']);
+        Route::get('files/{cms_batch_file}/edit', ['as' => 'admin.files.edit', 'uses' => 'FileController@edit']);
+        Route::put('files/{cms_batch_file}', ['as' => 'admin.files.update', 'uses' => 'FileController@update']);
+        Route::get('files/{cms_batch_file}/delete', ['as' => 'admin.files.delete', 'uses' => 'FileController@delete']);
 
     });
     
      // Response Files
-    Route::group(['before' => 'perm:view-ingredients'], function () {
-        Route::get('responses/', ['as' => 'admin.response', 'uses' => 'ResponseController@index']);
+    Route::group(['before' => 'perm:view-response-files'], function () {
+        Route::get('responses/', ['as' => 'admin.responses', 'uses' => 'ResponseController@index']);
+       });
+       
+        // Response Files
+    Route::group(['before' => 'perm:upload-response-files'], function () {
         Route::get('responses/create', ['as' => 'admin.responses.create', 'uses' => 'ResponseController@create']);
         Route::post('responses', ['as' => 'admin.responses.store', 'uses' => 'ResponseController@store']);
        });
+       
 
-    Route::group(['before' => 'perm:edit-ingredients'], function () {
-        Route::get('responses/{cms_file}/download', ['as' => 'admin.responses.download', 'uses' => 'ResponseController@download']);
-        Route::get('responses/{cms_file}/edit', ['as' => 'admin.responses.edit', 'uses' => 'ResponseController@edit']);
-        Route::put('responses/{cms_file}', ['as' => 'admin.responses.update', 'uses' => 'ResponseController@update']);
-        Route::get('responses/{cms_file}/delete', ['as' => 'admin.responses.delete', 'uses' => 'ResponseController@delete']);
+    Route::group(['before' => 'perm:delete-response-files'], function () {
+        Route::get('responses/{cms_response_file}/delete', ['as' => 'admin.responses.delete', 'uses' => 'ResponseController@delete']);
 
     });
     
+    Route::group(['before' => 'perm:download-response-files'], function () {
+        Route::get('responses/{cms_response_file}/download', ['as' => 'admin.responses.download', 'uses' => 'ResponseController@download']);
+        });
+    
      // Return Files
-    Route::group(['before' => 'perm:view-ingredients'], function () {
-        Route::get('return/', ['as' => 'admin.return', 'uses' => 'ReturnController@index']);
-        Route::get('return/create', ['as' => 'admin.return.create', 'uses' => 'ReturnController@create']);
-        Route::post('return', ['as' => 'admin.return.store', 'uses' => 'ReturnController@store']);
+    Route::group(['before' => 'perm:view-return-files'], function () {
+        Route::get('return/', ['as' => 'admin.returns', 'uses' => 'ReturnController@index']);
+        Route::get('return/create', ['as' => 'admin.returns.create', 'uses' => 'ReturnController@create']);
+        Route::post('return', ['as' => 'admin.returns.store', 'uses' => 'ReturnController@store']);
        });
 
-    Route::group(['before' => 'perm:edit-ingredients'], function () {
-        Route::get('return/{cms_file}/download', ['as' => 'admin.return.download', 'uses' => 'ResponseController@download']);
-        Route::get('return/{cms_file}/edit', ['as' => 'admin.return.edit', 'uses' => 'ResponseController@edit']);
-        Route::put('return/{cms_file}', ['as' => 'admin.return.update', 'uses' => 'ResponseController@update']);
-        Route::get('return/{cms_file}/delete', ['as' => 'admin.return.delete', 'uses' => 'ResponseController@delete']);
-
+    Route::group(['before' => 'perm:delete-return-files'], function () {
+        Route::get('return/{cms_return_file}/delete', ['as' => 'admin.returns.delete', 'uses' => 'ResponseController@delete']);
     });
+    
+    Route::group(['before' => 'perm:download-return-files'], function () {
+        Route::get('return/{cms_return_file}/download', ['as' => 'admin.returns.download', 'uses' => 'ResponseController@download']);
+       });
+    
+    // Payout Report
+    Route::group(['before' => 'perm:view-payout-report'], function () {
+        Route::get('report/', ['as' => 'admin.reports', 'uses' => 'ReportController@index']);
+        Route::get('report/create', ['as' => 'admin.reports.create', 'uses' => 'ReportController@create']);
+        Route::post('report', ['as' => 'admin.reports.store', 'uses' => 'ReportController@store']);
+       });
+    
+    Route::group(['before' => 'perm:delete-return-files'], function () {
+        Route::get('return/{cms_report}/edit', ['as' => 'admin.reports.edit', 'uses' => 'ReportController@edit']);
+        Route::put('return/{cms_report}', ['as' => 'admin.reports.update', 'uses' => 'ReportController@update']);
+        Route::get('return/{cms_report}/delete', ['as' => 'admin.reports.delete', 'uses' => 'ReportController@delete']);
+    });
+    
+    Route::group(['before' => 'perm:download-payout-report'], function () {
+        Route::get('return/{cms_report}/download', ['as' => 'admin.reports.download', 'uses' => 'ReportController@download']);
+       });
 });
 
 

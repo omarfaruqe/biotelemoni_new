@@ -20,7 +20,7 @@
 		<ul class="sidebar-menu">
 			<li class="header">MAIN NAVIGATION</li>
 			
-			@if (Auth::user()->can('view-ingredients'))
+			@if (Auth::user()->can('view-batch-files'))
 			<li {!!$section=='files' ? 'class="active"' : ''!!}>
 				<a href="{{route('admin.files')}}">
 					<i class="fa fa-file-o"></i> <span>Batch upload</span></i>
@@ -28,18 +28,26 @@
 			</li>
 			@endif
                         
-                        @if (Auth::user()->can('view-ingredients'))
+                        @if (Auth::user()->can('view-response-files'))
 			<li {!!$section=='response' ? 'class="active"' : ''!!}>
-				<a href="{{route('admin.response')}}">
+				<a href="{{route('admin.responses')}}">
 					<i class="fa fa-file-archive-o"></i> <span>Response</span></i>
 				</a>
 			</li>
 			@endif
                         
-                        @if (Auth::user()->can('view-ingredients'))
-			<li {!!$section=='return' ? 'class="active"' : ''!!}>
-				<a href="{{route('admin.return')}}">
+                        @if (Auth::user()->can('view-return-files'))
+			<li {!!$section=='return_file' ? 'class="active"' : ''!!}>
+				<a href="{{route('admin.returns')}}">
 					<i class="fa fa-file-text"></i> <span>Return</span></i>
+				</a>
+			</li>
+			@endif
+                        
+                        @if (Auth::user()->can('view-payout-report'))
+			<li {!!$section=='report' ? 'class="active"' : ''!!}>
+				<a href="{{route('admin.reports')}}">
+					<i class="fa fa-file-text"></i> <span>Payout Report</span></i>
 				</a>
 			</li>
 			@endif

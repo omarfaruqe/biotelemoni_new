@@ -55,9 +55,6 @@
                             <button type="submit" class="btn btn-primary">
                                 <i class="fa fa-save"></i> Save
                             </button>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-delete">
-                                <i class="fa fa-download"></i> Download
-                            </button>
                         </div>
                     </div>
 

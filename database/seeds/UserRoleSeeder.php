@@ -200,6 +200,7 @@ class UserRoleSeeder extends Seeder {
                                 $download_response_file,
                                 
                                 $view_return_file,
+                                $download_return_file,
                                 
                                 $view_payout_report,
                                 $download_payout_report

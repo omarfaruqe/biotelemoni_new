@@ -1,12 +1,12 @@
 @extends('templates.cms')
 @section('header')
     <h1>
-        File
+        Batch File
         <small>Upload</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{route('admin.files')}}"><i class="fa fa-users"></i> File</a></li>
+        <li><a href="{{route('admin.files')}}"><i class="fa fa-file-o"></i> Batch File</a></li>
         <li><i class="fa fa-user-plus"></i> Upload</li>
     </ol>
 @endsection

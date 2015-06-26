@@ -3,6 +3,7 @@
 namespace Sugar\Http\Controllers\CMS;
 
 use Illuminate\Support\Facades\Auth;
+use File;
 use Sugar\Report;
 use Sugar\Http\Requests;
 use Sugar\Http\Controllers\Controller;
@@ -84,9 +85,20 @@ class ReportController extends CmsController {
             return redirect()->route('admin.reports');
         }
 
-        public function download()
+        public function download($report)
         {
-            dd("gg");
+            \Session::flash('flash_message', 'We will be comming back with download');
+            return redirect()->route('admin.reports');
+            File::put(public_path().'files/upload/report.txt',$report->description);
+            $report['download_counter']=$report->download_counter+1;
+            $report->update();
+
+            return Response::download($file_name, 'report.text');
+        }
+        
+        public function show($report)
+        {
+            return view('cms.report.show',  compact('report'));
         }
 	
 

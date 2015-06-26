@@ -31,12 +31,12 @@
                            aria-describedby="example2_info">
                         <thead>
                         <tr role="row">
-                            <th>Title</th>
-                            <th>Description</th>
+                            <th style="width:15%">Title</th>
+                            <th style="width:40%">Description</th>
                             <th>Created At</th>
-                            <th style="width:18%">Download count</th>
+                            <th>Count</th>
                             @if(Auth::user()->can('download-payout-report'))
-                                <th style="width:18%">Action</th>
+                                <th style="width:20%">Action</th>
                             @endif
                         </tr>
                         </thead>
@@ -67,10 +67,20 @@
                                         {{$report->download_counter}}
                                     </td>
                                     <td>
-                                        @if(Auth::user()->can('download-payout-report'))
-                                            <a href="{{route('admin.reports.edit',$report->id)}}"
+                                        @if(Auth::user()->can('view-payout-report'))
+                                            <a href="{{route('admin.reports.show',$report->id)}}"
                                                class="btn btn-info btn-xs"><i
+                                                        class="fa fa-eye"></i> View</a>
+                                        @endif
+                                        @if(Auth::user()->can('create-payout-report'))
+                                            <a href="{{route('admin.reports.edit',$report->id)}}"
+                                               class="btn btn-primary btn-xs"><i
                                                         class="fa fa-pencil-square-o"></i> Edit</a>
+                                        @endif
+                                        @if(Auth::user()->can('download-payout-report'))
+                                            <a href="{{route('admin.reports.download',$report->id)}}"
+                                               class="btn btn-success btn-xs"><i
+                                                        class="fa fa-pencil-square-o"></i> Download</a>
                                         @endif
                                     </td>
                                 </tr>
@@ -87,7 +97,7 @@
                             <th>Title</th>
                             <th>Description</th>
                             <th>Created At</th>
-                            <th>Download count</th>
+                            <th>Count</th>
                             @if(Auth::user()->can('download-payout-report'))
                                 <th>Action</th>
                             @endif

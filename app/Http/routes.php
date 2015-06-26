@@ -107,13 +107,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'CMS']
        });
     
     Route::group(['before' => 'perm:delete-return-files'], function () {
-        Route::get('return/{cms_report}/edit', ['as' => 'admin.reports.edit', 'uses' => 'ReportController@edit']);
-        Route::put('return/{cms_report}', ['as' => 'admin.reports.update', 'uses' => 'ReportController@update']);
-        Route::get('return/{cms_report}/delete', ['as' => 'admin.reports.delete', 'uses' => 'ReportController@delete']);
+        Route::get('reports/{cms_report}/edit', ['as' => 'admin.reports.edit', 'uses' => 'ReportController@edit']);
+        Route::put('reports/{cms_report}', ['as' => 'admin.reports.update', 'uses' => 'ReportController@update']);
+        Route::get('reports/{cms_report}/show', ['as' => 'admin.reports.show', 'uses' => 'ReportController@show']);
+        Route::get('reports/{cms_report}/delete', ['as' => 'admin.reports.delete', 'uses' => 'ReportController@delete']);
     });
     
     Route::group(['before' => 'perm:download-payout-report'], function () {
-        Route::get('return/{cms_report}/download', ['as' => 'admin.reports.download', 'uses' => 'ReportController@download']);
+        Route::get('reports/{cms_report}/download', ['as' => 'admin.reports.download', 'uses' => 'ReportController@download']);
        });
 });
 

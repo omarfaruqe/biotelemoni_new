@@ -92,11 +92,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'CMS']
        });
 
     Route::group(['before' => 'perm:delete-return-files'], function () {
-        Route::get('return/{cms_return_file}/delete', ['as' => 'admin.returns.delete', 'uses' => 'ResponseController@delete']);
+        Route::get('return/{cms_return_file}/delete', ['as' => 'admin.returns.delete', 'uses' => 'ReturnController@delete']);
     });
     
     Route::group(['before' => 'perm:download-return-files'], function () {
-        Route::get('return/{cms_return_file}/download', ['as' => 'admin.returns.download', 'uses' => 'ResponseController@download']);
+        Route::get('return/{cms_return_file}/download', ['as' => 'admin.returns.download', 'uses' => 'ReturnController@download']);
        });
     
     // Payout Report

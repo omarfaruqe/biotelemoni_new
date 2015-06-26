@@ -93,19 +93,19 @@ class ReturnController extends CmsController {
         if (!empty($file->name)) {
             $file_path = ReturnFile::uploadReturnFilePath() . $file->name;
             if (file_exists($file_path)) {
-                unlink(User::uploadFilePath() . $file->name);
-                File::find($file->id)->delete();
+                unlink(ReturnFile::uploadReturnFilePath() . $file->name);
+                ReturnFile::find($file->id)->delete();
                 \Session::flash('flash_message', 'Your File has been deleted');
-                return redirect('admin.responses');
+                return redirect()->route('admin.returns');
             }
             else
             {
                  \Session::flash('error_message', 'Your File has not been deleted');
-                return redirect('admin.responses');
+                return redirect()->route('admin.returns');
             }
         } else {
             \Session::flash('error_message', 'Your file is not deleted');
-            return redirect()->route('admin.responses');
+            return redirect()->route('admin.returns');
         }
     }
 

@@ -101,15 +101,15 @@ class ResponseController extends CmsController {
         if (!empty($file->name)) {
             $file_path = FileResponse::uploadResponseFilePath() . $file->name;
             if (file_exists($file_path)) {
-                unlink(User::uploadFilePath() . $file->name);
-                File::find($file->id)->delete();
+                unlink(FileResponse::uploadResponseFilePath() . $file->name);
+                FileResponse::find($file->id)->delete();
                 \Session::flash('flash_message', 'Your File has been deleted');
-                return redirect('admin.responses');
+                return redirect()->route('admin.responses');
             }
             else
             {
                  \Session::flash('error_message', 'Your File has not been deleted');
-                return redirect('admin.responses');
+                return redirect()->route('admin.responses');
             }
         } else {
             \Session::flash('error_message', 'Your file is not deleted');

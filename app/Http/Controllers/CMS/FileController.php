@@ -21,7 +21,7 @@ class FileController extends CmsController
     }
 
     /**
-     * Retrieve all ingredient
+     * Retrieve all file
      * @return Collection
      */
 

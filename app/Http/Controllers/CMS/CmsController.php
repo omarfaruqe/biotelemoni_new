@@ -17,8 +17,9 @@ class CmsController extends Controller {
 	}
 
 	public function dashboard(){
-              return redirect('admin/files');
-            //return view('cms.dashboard.dashboard');
+			//die('kjjhks');
+              //return redirect('admin/files');
+            return view('cms.dashboard.dashboard');
 	}
 
 	public function styleGuide(){

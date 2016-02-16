@@ -28,7 +28,7 @@
 			</li>
 			@endif
                         
-                        @if (Auth::user()->can('view-response-files'))
+            @if (Auth::user()->can('view-response-files'))
 			<li {!!$section=='response' ? 'class="active"' : ''!!}>
 				<a href="{{route('admin.responses')}}">
 					<i class="fa fa-file-archive-o"></i> <span>Response</span></i>
@@ -36,7 +36,7 @@
 			</li>
 			@endif
                         
-                        @if (Auth::user()->can('view-return-files'))
+            @if (Auth::user()->can('view-return-files'))
 			<li {!!$section=='return_file' ? 'class="active"' : ''!!}>
 				<a href="{{route('admin.returns')}}">
 					<i class="fa fa-file-text"></i> <span>Return</span></i>
@@ -44,7 +44,7 @@
 			</li>
 			@endif
                         
-                        @if (Auth::user()->can('view-payout-report'))
+            @if (Auth::user()->can('view-payout-report'))
 			<li {!!$section=='report' ? 'class="active"' : ''!!}>
 				<a href="{{route('admin.reports')}}">
 					<i class="fa fa-file-text"></i> <span>Payout Report</span></i>

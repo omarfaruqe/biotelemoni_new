@@ -1,6 +1,6 @@
 <header class="main-header">
 	<!-- Logo -->
-	<a href="{{route('admin.dashboard')}}" class="logo"><b>Pyramid Payments</b> CMS</a>
+	<a href="{{route('admin.dashboard')}}" class="logo"><b>Biotelemoni</b></a>
 	<!-- Header Navbar: style can be found in header.less -->
 	<nav class="navbar navbar-static-top" role="navigation">
 		<!-- Sidebar toggle button-->

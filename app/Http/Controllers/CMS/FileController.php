@@ -128,4 +128,11 @@ class FileController extends CmsController
         return Response::download($file_name, 'output.csv');
     }
 
+    public function share($file)
+    {
+        $userList = User::where('id', '!=', Auth::user()->id)->select('id', 'email')->lists('email','id');
+        //dd($userList);
+        return view('cms.files.share', compact('file','userList') );
+    }
+
 }

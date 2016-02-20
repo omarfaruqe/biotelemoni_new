@@ -34,6 +34,9 @@
 	<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 	<![endif]-->
     <!-- jQuery 2.1.3 -->
+
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-multiselect.css') }}" type="text/css"/>
+
     <script src="{{ asset('skins/adminLTE/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
@@ -77,7 +80,7 @@
 		</section><!-- /.content -->
 	</div><!-- /.content-wrapper -->
 	<footer class="main-footer">
-		<strong>Copyright &copy; {{date('Y')}} <a href="#">Pyramid Payments</a>.</strong> All rights reserved.
+		<strong>Copyright &copy; {{date('Y')}} <a href="#">Biotelemoni</a>.</strong> All rights reserved.
 	</footer>
 </div><!-- ./wrapper -->
 
@@ -119,5 +122,9 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('skins/adminLTE/dist/js/demo.js') }}" type="text/javascript"></script>
  <script src="https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>
+
+<script type="text/javascript" src="{{ asset('js/bootstrap-multiselect.js') }}"></script>
+
+
 </body>
 </html>

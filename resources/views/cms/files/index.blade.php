@@ -47,7 +47,7 @@
                             @foreach($file_list as $file)
                                 <tr>
                                     <td>
-                                        {{$file->name}}
+                                        {{substr($file->name,10)}}
                                     </td>
                                     <td>
                                         {{$file->user->name}}
@@ -66,6 +66,10 @@
                                             <a href="{{route('admin.files.download',$file->id)}}"
                                                class="btn btn-info btn-xs"><i
                                                         class="fa fa-eye"></i> Download</a>
+                                        @endif
+
+                                         @if(Auth::user()->can('delete-download-batch-files'))
+                                            <a href="{{route('admin.files.share',$file->id)}}" class="btn btn-primary btn-xs"><i class="fa-share"></i> Share</a>
                                         @endif
 
                                         @if(Auth::user()->can('delete-download-batch-files'))

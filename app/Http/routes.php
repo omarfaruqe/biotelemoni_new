@@ -60,7 +60,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'CMS']
         Route::get('files/{cms_batch_file}/edit', ['as' => 'admin.files.edit', 'uses' => 'FileController@edit']);
         Route::put('files/{cms_batch_file}', ['as' => 'admin.files.update', 'uses' => 'FileController@update']);
         Route::get('files/{cms_batch_file}', ['as' => 'admin.files.share', 'uses' => 'FileController@share']);
-
+        Route::put('files/{cms_batch_file}', ['as' => 'admin.files.sharefile', 'uses' => 'FileController@filestore']);
         Route::get('files/{cms_batch_file}/delete', ['as' => 'admin.files.delete', 'uses' => 'FileController@delete']);
 
     });

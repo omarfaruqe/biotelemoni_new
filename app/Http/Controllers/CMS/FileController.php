@@ -131,8 +131,30 @@ class FileController extends CmsController
     public function share($file)
     {
         $userList = User::where('id', '!=', Auth::user()->id)->select('id', 'email')->lists('email','id');
-        //dd($userList);
         return view('cms.files.share', compact('file','userList') );
+    }
+
+    public function filestore(Request $request)
+    {
+        
+        $usersID = $request['useremail'];
+        $users = User::whereIn('id', $usersID)->get();
+
+        foreach ($users as $key => $user) {
+            $this->sendEmail($user);
+        }
+         
+        dd($usersID);
+    }
+
+    public function sendEmail($user){
+        \Mail::send('emails.fileshare', ['user' => $user], function ($message) use ($user) {
+            $message->from(Auth::user()->email, 'Biotelemoni');
+
+            $message->to($user->email);
+        });
+
+        dd('d');
     }
 
 }

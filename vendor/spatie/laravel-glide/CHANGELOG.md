@@ -2,6 +2,18 @@
 
 All notable changes to laravel-glide will be documented in this file.
 
+## 2.2.8
+- fixed issue that prevented Glide from accessing exif data.
+
+## 2.2.7
+- removing constraint on Intervention package.
+
+## 2.2.6
+- temporary add constraint on Intervention package while investigating exif exception.
+
+## 2.2.5
+- fix memory leak.
+
 ## 2.2.4
 - in some cases the wrong mime-type was return. This is fixed.
 

@@ -59,11 +59,19 @@ class UserController extends CmsController {
 				'password' => 'required|confirmed|min:6',
 			]);
 		$input = $request->all();
-		$input['password'] = bcrypt($input['password']);
+		$password = $input['password'];
+		$input['password'] = bcrypt($password);
 		$role = Role::find($input['role_id']);
 		$user = User::create($input);
 		// attach the role to user
 		$user->roles()->attach($role->id);
+
+		\Mail::send('emails.welcome', ['user' => $user], function ($message) use ($user) {
+            $message->from(Auth::user()->email, 'Biotelemoni');
+
+            $message->to($user->email, $user->name)->subject('Your Account');
+        });
+
 		\Session::flash('flash_message', 'User has been created.');
 		return redirect('admin/users');
 	}

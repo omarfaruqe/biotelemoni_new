@@ -35,7 +35,11 @@
 	<![endif]-->
     <!-- jQuery 2.1.3 -->
 
-    <link rel="stylesheet" href="{{ asset('css/bootstrap-multiselect.css') }}" type="text/css"/>
+    {{-- Multiselect --}}
+	<link rel="stylesheet" href="{{ asset('css/bootstrap-multiselect.css')}} " type="text/css"/>
+	{{-- Tokenfield --}}
+	<link rel="stylesheet" href="{{ asset('css/tokenfield-typeahead.min.css')}} " type="text/css"/>
+	<link rel="stylesheet" href="{{ asset('css/bootstrap-tokenfield.min.css')}} " type="text/css"/>
 
     <script src="{{ asset('skins/adminLTE/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -123,7 +127,10 @@
 <script src="{{ asset('skins/adminLTE/dist/js/demo.js') }}" type="text/javascript"></script>
  <script src="https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>
 
-<script type="text/javascript" src="{{ asset('js/bootstrap-multiselect.js') }}"></script>
+{{-- Multiselect --}}
+	<script type="text/javascript" src="{{ asset('js/lib/bootstrap-multiselect.js') }}"></script>
+	{{-- Tokenfield --}}
+	<script type="text/javascript" src="{{ asset('js/lib/bootstrap-tokenfield.js') }}"></script>
 
 
 </body>

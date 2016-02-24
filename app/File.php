@@ -17,4 +17,16 @@ class File extends AppModel {
         return $this->belongsTo('\Sugar\User');
     }
 
+    // protected static $sources = [
+    //     'FLIP',
+    //     'CNF',
+    //     'AUZNZ',
+    //     'USER',
+    //     'OTHER'
+    // ];
+
+    // public static function listStatuses(){
+    //     return self::$sources;
+    // }
+
 }

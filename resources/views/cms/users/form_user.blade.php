@@ -8,9 +8,9 @@
         <h4 class="panel-title">Basic Information</h4>
     </div>
     <div class="form-group give-padding" >
-        {!! Form::label('file name', 'File Name',['class' => 'col-md-4 control-label']) !!}
+        {!! Form::label('name', 'Name',['class' => 'col-md-4 control-label']) !!}
         <div class="col-md-6">
-            {!! Form::text('file name', null, ['class'=> 'form-control','required']) !!}
+            {!! Form::text('name', null, ['class'=> 'form-control','required']) !!}
         </div>
     </div>
 

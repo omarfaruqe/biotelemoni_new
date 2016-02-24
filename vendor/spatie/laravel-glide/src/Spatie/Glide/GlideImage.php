@@ -98,9 +98,14 @@ class GlideImage
     {
         $glideApi = GlideApiFactory::create();
 
-        $outputImageData = $glideApi->run(Request::create(null, null, $this->modificationParameters), file_get_contents($this->getPathToImage()));
+        $outputImageData = $glideApi->run(Request::create(null, null, $this->modificationParameters), $this->getPathToImage());
 
         file_put_contents($outputFile, $outputImageData);
+        
+       /**
+        * Triggering the garbage collection solves a memory leak in an underlying package.
+        */
+        gc_collect_cycles();
 
         return $this->getURL();
     }

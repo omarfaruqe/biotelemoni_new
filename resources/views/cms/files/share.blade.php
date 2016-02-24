@@ -21,8 +21,8 @@
                 </div>
                 <div class="box-body">
                     <div class="box-body">
-                        {!! Form::open(['method'=>'POST','files' => 'true','class' => 'form-horizontal','role'=>'form', 'route' =>
-                        ['admin.files.store']]) !!}
+                        {!! Form::model($file,['method'=>'PUT','files' => 'true','class' => 'form-horizontal','role'=>'form', 'route' =>
+                        ['admin.files.sharefile',$file->id]]) !!}
                         @include('errors.form_error')
 
                         <div class="panel panel-default">
@@ -38,15 +38,21 @@
                             </div>
 
                             <div class="form-group">
-                                {!! Form::label('user_id', 'E-Mail Address',['class' => 'col-md-4 control-label']) !!}
-                                <div class="col-md-6">
-                                    {!! Form::select('user_id', $userList, null, array('class' => 'form-control','id'=>'select-email','multiple'=>'multiple')) !!}
+                                {!! Form::label('email', 'Email',['class' => 'col-md-4 control-label']) !!}
+                                <div class="col-md-8 multiselect-outer" id="list_box">
+                                    <select data-column="3" id="user-email-select" multiple="multiple" name="useremail[]" class="multiselect">
+                                        @foreach($userList as $key=>$user)
+                                            <option value="{{$key}}">
+                                                {{$user}}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
-
-
-
                         </div>
+
+                        <input type="hidden" name="file_id" value="{{$file->id}}"/>
+                        <input type="hidden" name="file_name" value="{{$file->name}}"/>
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
@@ -61,17 +67,17 @@
             </div>
         </div>
     </div>
-@endsection
-
-
-
-<script type="text/javascript">
+    <script type="text/javascript">
     $(document).ready(function() {
-        $('#select-email').multiselect({
-            enableFiltering: true
+
+        // to initialize the multiple checkbox library
+        $('.multiselect').multiselect({
+            enableFiltering: true,
+            enableCaseInsensitiveFiltering: true
         });
     });
 </script>
+@endsection
 
 
 

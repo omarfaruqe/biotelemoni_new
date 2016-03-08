@@ -7,8 +7,6 @@
 /public/files/
 ~$*
 /nbproject/private/
-/vendor
 /config/database.php
 .env
-/vendor/
 

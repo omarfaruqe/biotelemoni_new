@@ -1,13 +1,2 @@
-/node_modules
-.DS_Store
-.idea
-.sass_cache
-/public/files/avatar/
-/public/files/upload/
-/public/files/
-~$*
-/nbproject/private/
-/vendor
-/config/database.php
-.env
+
 

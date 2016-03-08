@@ -49,14 +49,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'CMS']
     });
 
     // Batch Files
-    Route::group(['before' => 'perm:view-batch-files'], function () {
+    Route::group(['before' => 'perm:view-files'], function () {
         Route::get('files/', ['as' => 'admin.files', 'uses' => 'FileController@index']);
-        Route::get('files/create', ['as' => 'admin.files.create', 'uses' => 'FileController@create']);
-        Route::post('files', ['as' => 'admin.files.store', 'uses' => 'FileController@store']);
+        Route::get('files/{cms_batch_file}/download', ['as' => 'admin.files.download', 'uses' => 'FileController@download']);
     });
 
-    Route::group(['before' => 'perm:delete-download-batch-files'], function () {
-        Route::get('files/{cms_batch_file}/download', ['as' => 'admin.files.download', 'uses' => 'FileController@download']);
+    Route::group(['before' => 'perm:delete-files'], function () {
+        Route::get('files/create', ['as' => 'admin.files.create', 'uses' => 'FileController@create']);
+        Route::post('files', ['as' => 'admin.files.store', 'uses' => 'FileController@store']);
         Route::get('files/{cms_batch_file}/edit', ['as' => 'admin.files.edit', 'uses' => 'FileController@edit']);
         Route::put('files/{cms_batch_file}', ['as' => 'admin.files.update', 'uses' => 'FileController@update']);
         Route::get('files/{cms_batch_file}', ['as' => 'admin.files.share', 'uses' => 'FileController@share']);

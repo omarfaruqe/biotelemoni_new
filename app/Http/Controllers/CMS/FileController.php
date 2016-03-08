@@ -38,7 +38,10 @@ class FileController extends CmsController
         }
         else
         {
-            $paginator = File::where('user_id', '=', Auth::user()->id)->paginate(20);
+            $user = User::find(Auth::user()->id);
+            
+            $fileIds = json_decode($user->file_id);
+            $paginator = File::whereIn('id',$fileIds)->paginate(20);
         }
        
         $file_list = collect($paginator->items());
@@ -139,25 +142,43 @@ class FileController extends CmsController
 
     public function filestore(Request $request)
     {
-        
         $usersID = $request['useremail'];
         $users = User::whereIn('id', $usersID)->get();
-        dd($users);
+        
+        //$fileInfo = File::where('id', $request['file_id'])->get();
+        $file = File::find($request['file_id']);
+        
+        /*if($file->shared_with==''){
+            $file->shared_with = json_encode($usersID);
+            $fileupdate = $file->update();
+        }else{
+            $existing_user = json_decode($file->shared_with);
+            $file->shared_with = json_encode(array_merge($existing_user, $usersID));
+            $fileupdate = $file->update();
+        }*/
+        
         foreach ($users as $key => $user) {
-            $this->sendEmail($user);
+            $this->sendEmail($user, $file);
         }
-         
-        dd($usersID);
+        
+        \Session::flash('flash_message', 'File invitation to selected user has been send.');
+        return redirect('admin/files');
     }
 
-    public function sendEmail($user){
-        \Mail::send('emails.fileshare', ['user' => $user], function ($message) use ($user) {
-            $message->from(Auth::user()->email, 'Biotelemoni');
-
-            $message->to($user->email);
+    public function sendEmail($user, $file){
+        $fileArray = array($file->id);
+        if($user->file_id==''){
+            $user->file_id = json_encode($fileArray);
+            $userUpdate = $user->update();
+        }else{
+            $existing_fileId = json_decode($user->file_id);
+            $user->file_id = json_encode(array_merge($existing_fileId, $fileArray));
+            $userUpdate = $user->update();
+        }
+        \Mail::send('emails.fileshare', ['user' => $user, 'file' => $file], function ($message) use ($user, $file) {
+            $message->from('admin@Biotelemoni.com', 'Administrator');;
+            $message->to($user->email)->subject('Invitation to download file');
         });
-
-        dd('d');
     }
 
 }

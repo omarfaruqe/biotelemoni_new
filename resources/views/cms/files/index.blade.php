@@ -1,12 +1,12 @@
 @extends('templates.cms')
 @section('header')
     <h1>
-        Batch Uploaded 
+        File Uploaded 
         <small>Index</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li><i class="fa fa-file-o"></i> Batch Uploads</li>
+        <li><i class="fa fa-file-o"></i> File Uploads</li>
     </ol>
 @endsection
 @section('content')
@@ -19,7 +19,7 @@
                     <h3>All Uploaded Files</h3>
 
                     <h3>
-                        @if(Auth::user()->can('delete-download-batch-files'))
+                        @if(Auth::user()->can('delete-files'))
                             <a href="{{route('admin.files.create')}}" class="btn btn-primary btn-sm pull-right"><i
                                         class="fa fa-upload"></i>Upload</a>
                         @endif
@@ -35,7 +35,7 @@
                             <th>Uploaded By</th>
                             <th>Uploaded At</th>
                             <th style="width:18%">Download count</th>
-                            @if(Auth::user()->can('delete-download-batch-files') || Auth::user()->can('view-batch-files'))
+                            @if(Auth::user()->can('delete-files') || Auth::user()->can('view-files'))
                                 <th style="width:28%">Action</th>
                             @endif
                         </tr>
@@ -59,17 +59,17 @@
                                         {{$file->download_counter}}
                                     </td>
                                     <td>
-                                        @if(Auth::user()->can('delete-download-batch-files'))
+                                        @if(Auth::user()->can('view-files'))
                                             <a href="{{route('admin.files.download',$file->id)}}"
                                                class="btn btn-info btn-xs"><i
                                                         class="fa fa-eye"></i> Download</a>
                                         @endif
 
-                                         @if(Auth::user()->can('delete-download-batch-files'))
+                                         @if(Auth::user()->can('delete-files'))
                                             <a href="{{route('admin.files.share',$file->id)}}" class="btn btn-primary btn-xs"><i class="fa-share"></i>Invite</a>
                                         @endif
 
-                                        @if(Auth::user()->can('delete-download-batch-files'))
+                                        @if(Auth::user()->can('delete-files'))
                                             <a href="{{route('admin.files.delete',$file->id)}}" onclick="return confirm('Are you sure you want to delete this file?');"
                                                class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete</a>
                                         @endif
@@ -89,7 +89,7 @@
                             <th>Uploaded By</th>
                             <th>Uploaded At</th>
                             <th>Download count</th>
-                            @if(Auth::user()->can('delete-download-batch-files') || Auth::user()->can('view-batch-files'))
+                            @if(Auth::user()->can('delete-files') || Auth::user()->can('view-files'))
                                 <th>Action</th>
                             @endif
                         </tr>

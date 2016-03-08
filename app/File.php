@@ -10,7 +10,7 @@ class File extends AppModel {
 		return public_path() . self::UPLOAD_BATCH_FILE_DIR;
 	}
     protected $table = 'files';
-    protected $fillable = ['name','user_id','download_counter','status'];
+    protected $fillable = ['name','user_id','download_counter','status','shared_with'];
 
     public function user()
     {

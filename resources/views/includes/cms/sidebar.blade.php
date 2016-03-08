@@ -20,7 +20,7 @@
 		<ul class="sidebar-menu">
 			<li class="header">MAIN NAVIGATION</li>
 			
-			@if (Auth::user()->can('view-batch-files'))
+			@if (Auth::user()->can('view-files'))
 			<li {!!$section=='files' ? 'class="active"' : ''!!}>
 				<a href="{{route('admin.files')}}">
 					<i class="fa fa-file-o"></i> <span>File upload</span></i>

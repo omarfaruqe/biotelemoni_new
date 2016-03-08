@@ -62,8 +62,7 @@ class FileController extends CmsController
                     'extension' => strtolower($file->getClientOriginalExtension()),
                 ],
                 [
-                    'file' => 'required',
-                    'extension' => 'required|in:csv',
+                    'file' => 'required'
                 ]
             );
 
@@ -116,40 +115,25 @@ class FileController extends CmsController
 
     public function download($file)
     {
-        //dd($file);
-         
-         $email = \Mail::send('emails.test', array('name' => 'The New Topic'),   function($message){
-            $message->from('admin@Biotelemoni.com', 'Sender Name');
-            $message->to('omarfaruk.sust@gmail.com', 'The New Topic')->subject('Test Email');
-        });
 
-        // $subject=['name'=>'omarfaruk'];
-        //  $email = Mail::send('emails.test', ['key' => 'value'], function($message) use ($subject) {
-        //   // note: if you don't set this, it will use the defaults from config/mail.php
-        //   $message->from('amrakotha@gmail.com', 'Sender Name');
-        //   $message->to('omarfaruk.sust@gmail.com', 'John Smith')
-        //     ->subject($subject);
-        //  });
-
-        dd($email);
-
-        /*$file_name = User::uploadFilePath() . $file->name;
+        $file_name = User::uploadFilePath() . $file->name;
         $headers = array(
             'Content-Type: application/csv',
-            'Content-Disposition:attachment; filename="test.csv"',
+            'Content-Disposition:attachment; filename="test"',
             'Content-Transfer-Encoding:binary',
             'Content-Length:' . filesize($file_name),
         );
         $input['download_counter']=$file->download_counter+1;
         File::where('id', $file->id)->update(['download_counter' => $file->download_counter+1]);
-
-        return Response::download($file_name, 'output.csv');*/
+        
+        return Response::download($file_name, $file->name.'');
 
     }
 
     public function share($file)
     {
         $userList = User::where('id', '!=', Auth::user()->id)->select('id', 'email')->lists('email','id');
+
         return view('cms.files.share', compact('file','userList') );
     }
 
@@ -158,7 +142,7 @@ class FileController extends CmsController
         
         $usersID = $request['useremail'];
         $users = User::whereIn('id', $usersID)->get();
-
+        dd($users);
         foreach ($users as $key => $user) {
             $this->sendEmail($user);
         }

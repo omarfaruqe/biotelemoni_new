@@ -2,10 +2,11 @@
 @extends('templates.auth')
 
 @section('content')
-    <div class="container">
+
+    <div class="container" style="background-iamge: url({{URL::asset('images/background.jpg')}})">
         <div class="row">
             <div class="col-sm-6 col-md-4 col-md-offset-4">
-                <h1 class="text-center login-title">Sign in to Pyramid Payments</h1>
+                <h1 class="text-center login-title">Sign in to Biotelemoni</h1>
                 @if (count($errors) > 0)
                     <div class="alert alert-danger">
                         <strong>Whoops!</strong> There were some problems with your input.<br><br>

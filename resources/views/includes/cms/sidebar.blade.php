@@ -23,7 +23,7 @@
 			@if (Auth::user()->can('view-batch-files'))
 			<li {!!$section=='files' ? 'class="active"' : ''!!}>
 				<a href="{{route('admin.files')}}">
-					<i class="fa fa-file-o"></i> <span>Batch upload</span></i>
+					<i class="fa fa-file-o"></i> <span>File upload</span></i>
 				</a>
 			</li>
 			@endif 

@@ -16,12 +16,12 @@
         <div class="row">
             <div class="box col-xs-12">
                 <div class="box-header">
-                    <h3>All Batch Uploaded Files</h3>
+                    <h3>All Uploaded Files</h3>
 
                     <h3>
                         @if(Auth::user()->can('delete-download-batch-files'))
                             <a href="{{route('admin.files.create')}}" class="btn btn-primary btn-sm pull-right"><i
-                                        class="fa fa-upload"></i> Upload</a>
+                                        class="fa fa-upload"></i>Upload</a>
                         @endif
                     </h3>
                 </div>
@@ -34,10 +34,9 @@
                             <th>File Name</th>
                             <th>Uploaded By</th>
                             <th>Uploaded At</th>
-                            <th>Status</th>
                             <th style="width:18%">Download count</th>
                             @if(Auth::user()->can('delete-download-batch-files') || Auth::user()->can('view-batch-files'))
-                                <th style="width:18%">Action</th>
+                                <th style="width:28%">Action</th>
                             @endif
                         </tr>
                         </thead>
@@ -47,7 +46,7 @@
                             @foreach($file_list as $file)
                                 <tr>
                                     <td>
-                                        {{substr($file->name,10)}}
+                                        {{$file->name}}
                                     </td>
                                     <td>
                                         {{$file->user->name}}
@@ -55,9 +54,7 @@
                                     <td>
                                         {{$file->created_at}}
                                     </td>
-                                    <td>
-                                        {{$file->status}}
-                                    </td>
+                                
                                     <td>
                                         {{$file->download_counter}}
                                     </td>
@@ -69,7 +66,7 @@
                                         @endif
 
                                          @if(Auth::user()->can('delete-download-batch-files'))
-                                            <a href="{{route('admin.files.share',$file->id)}}" class="btn btn-primary btn-xs"><i class="fa-share"></i> Share</a>
+                                            <a href="{{route('admin.files.share',$file->id)}}" class="btn btn-primary btn-xs"><i class="fa-share"></i>Invite</a>
                                         @endif
 
                                         @if(Auth::user()->can('delete-download-batch-files'))
@@ -91,7 +88,6 @@
                             <th>File Name</th>
                             <th>Uploaded By</th>
                             <th>Uploaded At</th>
-                            <th>Status</th>
                             <th>Download count</th>
                             @if(Auth::user()->can('delete-download-batch-files') || Auth::user()->can('view-batch-files'))
                                 <th>Action</th>

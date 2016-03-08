@@ -1,6 +1,7 @@
 Dear {{$user->name}},
-
+<br/>
 your username is: {{$user->email}}
-your username is: {{$user->password}}
+<br/>
+your password is: {{$password}}
 
-Click here to active your account {{ url('password/reset/'.$user->id) }}
+Please login to access the files {{ url('/') }}

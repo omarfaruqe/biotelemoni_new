@@ -1,5 +1,5 @@
 Dear {{$user->name}},
-
+{{dd($user)}}
 your username is: {{$user->email}}
 your username is: {{$user->password}}
 

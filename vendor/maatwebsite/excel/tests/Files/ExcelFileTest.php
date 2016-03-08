@@ -2,8 +2,6 @@
 
 include_once 'classes/TestImport.php';
 include_once 'classes/TestImportHandler.php';
-include_once 'classes/TestFile.php';
-include_once 'classes/TestFileHandler.php';
 
 class ExcelFileTest extends TestCase {
 
@@ -59,12 +57,7 @@ class ExcelFileTest extends TestCase {
 
         $this->assertInstanceOf('Maatwebsite\Excel\Collections\RowCollection', $results);
         $this->assertCount(5, $results);
-
-        $importer = app('TestFile');
-        $results = $importer->handleImport();
-
-        $this->assertInstanceOf('Maatwebsite\Excel\Collections\RowCollection', $results);
-        $this->assertCount(5, $results);
     }
+
 
 }

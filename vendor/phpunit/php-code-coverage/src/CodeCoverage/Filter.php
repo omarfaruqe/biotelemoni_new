@@ -11,7 +11,13 @@
 /**
  * Filter for blacklisting and whitelisting of code coverage information.
  *
- * @since Class available since Release 1.0.0
+ * @category   PHP
+ * @package    CodeCoverage
+ * @author     Sebastian Bergmann <sebastian@phpunit.de>
+ * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @link       http://github.com/sebastianbergmann/php-code-coverage
+ * @since      Class available since Release 1.0.0
  */
 class PHP_CodeCoverage_Filter
 {
@@ -172,8 +178,7 @@ class PHP_CodeCoverage_Filter
     /**
      * Checks whether a filename is a real filename.
      *
-     * @param  string $filename
-     * @return bool
+     * @param string $filename
      */
     public function isFile($filename)
     {
@@ -198,7 +203,7 @@ class PHP_CodeCoverage_Filter
      * When the whitelist is not empty, whitelisting is used.
      *
      * @param  string                     $filename
-     * @return bool
+     * @return boolean
      * @throws PHP_CodeCoverage_Exception
      */
     public function isFiltered($filename)
@@ -239,7 +244,7 @@ class PHP_CodeCoverage_Filter
     /**
      * Returns whether this filter has a whitelist.
      *
-     * @return bool
+     * @return boolean
      * @since  Method available since Release 1.1.0
      */
     public function hasWhitelist()

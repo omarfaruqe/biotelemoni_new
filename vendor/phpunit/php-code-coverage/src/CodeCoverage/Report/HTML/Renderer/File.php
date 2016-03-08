@@ -33,23 +33,29 @@ if (!defined('T_YIELD')) {
 /**
  * Renders a PHP_CodeCoverage_Report_Node_File node.
  *
- * @since Class available since Release 1.1.0
+ * @category   PHP
+ * @package    CodeCoverage
+ * @author     Sebastian Bergmann <sebastian@phpunit.de>
+ * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @link       http://github.com/sebastianbergmann/php-code-coverage
+ * @since      Class available since Release 1.1.0
  */
 class PHP_CodeCoverage_Report_HTML_Renderer_File extends PHP_CodeCoverage_Report_HTML_Renderer
 {
     /**
-     * @var int
+     * @var integer
      */
     private $htmlspecialcharsFlags;
 
     /**
      * Constructor.
      *
-     * @param string $templatePath
-     * @param string $generator
-     * @param string $date
-     * @param int    $lowUpperBound
-     * @param int    $highLowerBound
+     * @param string  $templatePath
+     * @param string  $generator
+     * @param string  $date
+     * @param integer $lowUpperBound
+     * @param integer $highLowerBound
      */
     public function __construct($templatePath, $generator, $date, $lowUpperBound, $highLowerBound)
     {
@@ -439,7 +445,7 @@ class PHP_CodeCoverage_Report_HTML_Renderer_File extends PHP_CodeCoverage_Report
                 continue;
             }
 
-            list($token, $value) = $token;
+            list ($token, $value) = $token;
 
             $value = str_replace(
                 array("\t", ' '),

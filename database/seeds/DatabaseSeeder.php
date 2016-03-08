@@ -29,15 +29,15 @@ class UserTableSeeder extends Seeder {
     public function run() {
 
         Sugar\User::create( [
-            'email' => 'imran@pyramidpayments.com',
-            'password' => Hash::make( 'password' ),
-            'name' => 'Imran hossian',
+            'email' => 'admin@biotelemoni.com',
+            'password' => Hash::make( 'Sonartori1.' ),
+            'name' => 'Admin Admin',
         ] );
 
         Sugar\User::create( [
-            'email' => 'ypbo@pyramidpayments.com',
+            'email' => 'sourav@biotelemoni.com',
             'password' => Hash::make( 'password' ),
-            'name' => 'Ypbo',
+            'name' => 'Sourav Kumar Mukhopadhyay',
         ] );
 
         Sugar\User::create( [

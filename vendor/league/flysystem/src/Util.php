@@ -31,7 +31,11 @@ class Util
      */
     public static function normalizeDirname($dirname)
     {
-        return $dirname === '.' ? '' : $dirname;
+        if ($dirname === '.') {
+            return '';
+        }
+
+        return $dirname;
     }
 
     /**
@@ -59,7 +63,7 @@ class Util
         $result = [];
 
         foreach ($map as $from => $to) {
-            if ( ! isset($object[$from])) {
+            if (! isset($object[$from])) {
                 continue;
             }
 
@@ -85,9 +89,7 @@ class Util
         $normalized = static::normalizeRelativePath($normalized);
 
         if (preg_match('#/\.{2}|^\.{2}/|^\.{2}$#', $normalized)) {
-            throw new LogicException(
-                'Path is outside of the defined root, path: [' . $path . '], resolved: [' . $normalized . ']'
-            );
+            throw new LogicException('Path is outside of the defined root, path: ['.$path.'], resolved: ['.$normalized.']');
         }
 
         $normalized = preg_replace('#\\\{2,}#', '\\', trim($normalized, '\\'));
@@ -128,7 +130,7 @@ class Util
      */
     public static function normalizePrefix($prefix, $separator)
     {
-        return rtrim($prefix, $separator) . $separator;
+        return rtrim($prefix, $separator).$separator;
     }
 
     /**
@@ -140,7 +142,7 @@ class Util
      */
     public static function contentSize($contents)
     {
-        return defined('MB_OVERLOAD_STRING') ? mb_strlen($contents, '8bit') : strlen($contents);
+        return mb_strlen($contents, '8bit');
     }
 
     /**
@@ -155,7 +157,7 @@ class Util
     {
         $mimeType = MimeType::detectByContent($content);
 
-        if (empty($mimeType) || in_array($mimeType, ['application/x-empty', 'text/plain', 'text/x-asm'])) {
+        if (empty($mimeType) || $mimeType === 'text/plain') {
             $extension = pathinfo($path, PATHINFO_EXTENSION);
 
             if ($extension) {
@@ -179,11 +181,7 @@ class Util
         $listedDirectories = [];
 
         foreach ($listing as $object) {
-            list($directories, $listedDirectories) = static::emulateObjectDirectories(
-                $object,
-                $directories,
-                $listedDirectories
-            );
+            list($directories, $listedDirectories) = static::emulateObjectDirectories($object, $directories, $listedDirectories);
         }
 
         $directories = array_diff(array_unique($directories), array_unique($listedDirectories));
@@ -265,17 +263,13 @@ class Util
      */
     protected static function emulateObjectDirectories(array $object, array $directories, array $listedDirectories)
     {
-        if ($object['type'] === 'dir') {
-            $listedDirectories[] = $object['path'];
-        }
-
         if (empty($object['dirname'])) {
             return [$directories, $listedDirectories];
         }
 
         $parent = $object['dirname'];
 
-        while ( ! empty($parent) && ! in_array($parent, $directories)) {
+        while (! empty($parent) && ! in_array($parent, $directories)) {
             $directories[] = $parent;
             $parent = static::dirname($parent);
         }

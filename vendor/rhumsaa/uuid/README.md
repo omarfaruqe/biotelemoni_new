@@ -1,9 +1,5 @@
 # Rhumsaa\Uuid for PHP
 
-_**WARNING: This package is no longer maintained. Use [ramsey/uuid](https://github.com/ramsey/uuid) instead.**_
-
-----
-
 [![Build Status](https://travis-ci.org/ramsey/uuid.png?branch=master)](https://travis-ci.org/ramsey/uuid)
 [![Coverage Status](https://coveralls.io/repos/ramsey/uuid/badge.png)](https://coveralls.io/r/ramsey/uuid)
 [![Latest Stable Version](https://poser.pugx.org/rhumsaa/uuid/v/stable.png)](https://packagist.org/packages/rhumsaa/uuid)
@@ -95,14 +91,14 @@ the following command to install the package and add it as a requirement to
 `composer.json`:
 
 ```bash
-composer.phar require "ramsey/uuid=~2.8"
+composer.phar require "rhumsaa/uuid=~2.8"
 ```
 
 
 [rfc4122]: http://tools.ietf.org/html/rfc4122
 [javauuid]: http://docs.oracle.com/javase/6/docs/api/java/util/UUID.html
 [pyuuid]: http://docs.python.org/3/library/uuid.html
-[packagist]: https://packagist.org/packages/ramsey/uuid
+[packagist]: https://packagist.org/packages/rhumsaa/uuid
 [composer]: http://getcomposer.org/
 [moontoast\math]: https://github.com/moontoast/math
-[apidocs]: http://docs.benramsey.com/ramsey-uuid/2.8/
+[apidocs]: http://ramsey.github.io/uuid/apidocs

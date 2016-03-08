@@ -93,7 +93,7 @@ final class Uuid
     /**
      * Version of the Rhumsaa\Uuid package
      */
-    const VERSION = '2.8.2';
+    const VERSION = '2.8.0';
 
     /**
      * For testing, 64-bit system override; if true, treat the system as 32-bit
@@ -327,8 +327,7 @@ final class Uuid
      *
      * @return \DateTime A PHP DateTime representation of the date
      * @throws Exception\UnsupportedOperationException If this UUID is not a version 1 UUID
-     * @throws Exception\UnsatisfiedDependencyException if called on a 32-bit system
-     *     and Moontoast\Math\BigNumber is not present
+     * @throws Exception\UnsatisfiedDependencyException if called on a 32-bit system and Moontoast\Math\BigNumber is not present
      */
     public function getDateTime()
     {
@@ -336,22 +335,30 @@ final class Uuid
             throw new Exception\UnsupportedOperationException('Not a time-based UUID');
         }
 
+
         if (self::is64BitSystem()) {
+
             $unixTime = ($this->getTimestamp() - 0x01b21dd213814000) / 1e7;
             $unixTime = number_format($unixTime, 0, '', '');
+
         } elseif (self::hasBigNumber()) {
+
             $time = \Moontoast\Math\BigNumber::baseConvert($this->getTimestampHex(), 16, 10);
+
             $ts = new \Moontoast\Math\BigNumber($time, 20);
             $ts->subtract('122192928000000000');
             $ts->divide('10000000.0');
             $ts->round();
             $unixTime = $ts->getValue();
+
         } else {
+
             throw new Exception\UnsatisfiedDependencyException(
                 'When calling ' . __METHOD__ . ' on a 32-bit system, '
                 . 'Moontoast\Math\BigNumber must be present in order '
                 . 'to extract DateTime from version 1 UUIDs'
             );
+
         }
 
         return new \DateTime("@{$unixTime}");
@@ -441,7 +448,7 @@ final class Uuid
                 'Cannot call ' . __METHOD__ . ' without support for large '
                 . 'integers, since integer is an unsigned '
                 . '128-bit integer; Moontoast\Math\BigNumber is required'
-                . '; consider calling getHex instead'
+                . '; consider calling getMostSignificantBitsHex instead'
             );
         }
 
@@ -1071,12 +1078,12 @@ final class Uuid
      * @param int $sec Seconds since the Unix Epoch
      * @param int $usec Microseconds
      * @return array
-     * @throws Exception\UnsatisfiedDependencyException if called on a 32-bit system
-     *     and Moontoast\Math\BigNumber is not present
+     * @throws Exception\UnsatisfiedDependencyException if called on a 32-bit system and Moontoast\Math\BigNumber is not present
      */
     protected static function calculateUuidTime($sec, $usec)
     {
         if (self::is64BitSystem()) {
+
             // 0x01b21dd213814000 is the number of 100-ns intervals between the
             // UUID epoch 1582-10-15 00:00:00 and the Unix epoch 1970-01-01 00:00:00.
             $uuidTime = ($sec * 10000000) + ($usec * 10) + 0x01b21dd213814000;
@@ -1089,6 +1096,7 @@ final class Uuid
         }
 
         if (self::hasBigNumber()) {
+
             $uuidTime = new \Moontoast\Math\BigNumber('0');
 
             $sec = new \Moontoast\Math\BigNumber($sec);
@@ -1126,21 +1134,20 @@ final class Uuid
      */
     protected static function getIfconfig()
     {
-        ob_start();
         switch (strtoupper(substr(php_uname('a'), 0, 3))) {
             case 'WIN':
-                passthru('ipconfig /all 2>&1');
+                $ifconfig = `ipconfig /all 2>&1`;
                 break;
             case 'DAR':
-                passthru('ifconfig 2>&1');
+                $ifconfig = `ifconfig 2>&1`;
                 break;
             case 'LIN':
             default:
-                passthru('netstat -ie 2>&1');
+                $ifconfig = `netstat -ie 2>&1`;
                 break;
         }
 
-        return ob_get_clean();
+        return $ifconfig;
     }
 
     /**
@@ -1155,12 +1162,7 @@ final class Uuid
      */
     protected static function getNodeFromSystem()
     {
-        static $node = null;
-
-        if ($node !== null) {
-            return $node;
-        }
-
+        $node = null;
         $pattern = '/[^:]([0-9A-Fa-f]{2}([:-])[0-9A-Fa-f]{2}(\2[0-9A-Fa-f]{2}){4})[^:]/';
         $matches = array();
 

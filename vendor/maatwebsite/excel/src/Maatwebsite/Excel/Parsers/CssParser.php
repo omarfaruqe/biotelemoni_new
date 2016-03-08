@@ -119,7 +119,7 @@ class CssParser {
         // Get the link
         $link = $node->attributes()->href;
 
-        return $link;
+        return url($link);
     }
 
     /**

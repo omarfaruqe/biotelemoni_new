@@ -12,7 +12,11 @@
  * A TestRunner for the Command Line Interface (CLI)
  * PHP SAPI Module.
  *
- * @since Class available since Release 3.0.0
+ * @author     Sebastian Bergmann <sebastian@phpunit.de>
+ * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @link       http://www.phpunit.de/
+ * @since      Class available since Release 3.0.0
  */
 class PHPUnit_TextUI_Command
 {
@@ -77,7 +81,6 @@ class PHPUnit_TextUI_Command
         'testdox-text='        => null,
         'test-suffix='         => null,
         'no-configuration'     => null,
-        'no-coverage'          => null,
         'no-globals-backup'    => null,
         'printer='             => null,
         'static-backup'        => null,
@@ -101,9 +104,8 @@ class PHPUnit_TextUI_Command
     }
 
     /**
-     * @param array $argv
-     * @param bool  $exit
-     *
+     * @param  array $argv
+     * @param  bool  $exit
      * @return int
      */
     public function run(array $argv, $exit = true)
@@ -170,7 +172,6 @@ class PHPUnit_TextUI_Command
      * Create a TestRunner, override in subclasses.
      *
      * @return PHPUnit_TextUI_TestRunner
-     *
      * @since  Method available since Release 3.6.0
      */
     protected function createRunner()
@@ -226,11 +227,8 @@ class PHPUnit_TextUI_Command
     protected function handleArguments(array $argv)
     {
         if (defined('__PHPUNIT_PHAR__')) {
-            $this->longOptions['check-version'] = null;
-            $this->longOptions['selfupdate']    = null;
-            $this->longOptions['self-update']   = null;
-            $this->longOptions['selfupgrade']   = null;
-            $this->longOptions['self-upgrade']  = null;
+            $this->longOptions['selfupdate']  = null;
+            $this->longOptions['self-update'] = null;
         }
 
         try {
@@ -424,10 +422,6 @@ class PHPUnit_TextUI_Command
                     $this->arguments['useDefaultConfiguration'] = false;
                     break;
 
-                case '--no-coverage':
-                    $this->arguments['noCoverage'] = true;
-                    break;
-
                 case '--no-globals-backup':
                     $this->arguments['backupGlobals'] = false;
                     break;
@@ -479,22 +473,9 @@ class PHPUnit_TextUI_Command
                     $this->arguments['deprecatedStrictModeOption'] = true;
                     break;
 
-                case '--check-version':
-                    $this->handleVersionCheck();
-                    break;
-
                 case '--selfupdate':
                 case '--self-update':
                     $this->handleSelfUpdate();
-                    break;
-
-                case '--selfupgrade':
-                case '--self-upgrade':
-                    $this->handleSelfUpdate(true);
-                    break;
-
-                case '--whitelist':
-                    $this->arguments['whitelist'] = $option[1];
                     break;
 
                 default:
@@ -577,9 +558,6 @@ class PHPUnit_TextUI_Command
                 $configuration = PHPUnit_Util_Configuration::getInstance(
                     $this->arguments['configuration']
                 );
-            } catch (Throwable $e) {
-                print $e->getMessage() . "\n";
-                exit(PHPUnit_TextUI_TestRunner::FAILURE_EXIT);
             } catch (Exception $e) {
                 print $e->getMessage() . "\n";
                 exit(PHPUnit_TextUI_TestRunner::FAILURE_EXIT);
@@ -603,10 +581,6 @@ class PHPUnit_TextUI_Command
              */
             if (isset($phpunit['stderr']) && ! isset($this->arguments['stderr'])) {
                 $this->arguments['stderr'] = $phpunit['stderr'];
-            }
-
-            if (isset($phpunit['columns']) && ! isset($this->arguments['columns'])) {
-                $this->arguments['columns'] = $phpunit['columns'];
             }
 
             if (isset($phpunit['printerClass'])) {
@@ -678,9 +652,8 @@ class PHPUnit_TextUI_Command
     /**
      * Handles the loading of the PHPUnit_Runner_TestSuiteLoader implementation.
      *
-     * @param string $loaderClass
-     * @param string $loaderFile
-     *
+     * @param  string                         $loaderClass
+     * @param  string                         $loaderFile
      * @return PHPUnit_Runner_TestSuiteLoader
      */
     protected function handleLoader($loaderClass, $loaderFile = '')
@@ -723,9 +696,8 @@ class PHPUnit_TextUI_Command
     /**
      * Handles the loading of the PHPUnit_Util_Printer implementation.
      *
-     * @param string $printerClass
-     * @param string $printerFile
-     *
+     * @param  string               $printerClass
+     * @param  string               $printerFile
      * @return PHPUnit_Util_Printer
      */
     protected function handlePrinter($printerClass, $printerFile = '')
@@ -785,7 +757,7 @@ class PHPUnit_TextUI_Command
     /**
      * @since Method available since Release 4.0.0
      */
-    protected function handleSelfUpdate($upgrade = false)
+    protected function handleSelfUpdate()
     {
         $this->printVersionString();
 
@@ -801,22 +773,10 @@ class PHPUnit_TextUI_Command
             exit(PHPUnit_TextUI_TestRunner::EXCEPTION_EXIT);
         }
 
-        if (!$upgrade) {
-            $remoteFilename = sprintf(
-                'https://phar.phpunit.de/phpunit-%s.phar',
-                file_get_contents(
-                    sprintf(
-                        'https://phar.phpunit.de/latest-version-of/phpunit-%s',
-                        PHPUnit_Runner_Version::series()
-                    )
-                )
-            );
-        } else {
-            $remoteFilename = sprintf(
-                'https://phar.phpunit.de/phpunit%s.phar',
-                PHPUnit_Runner_Version::getReleaseChannel()
-            );
-        }
+        $remoteFilename = sprintf(
+            'https://phar.phpunit.de/phpunit%s.phar',
+            PHPUnit_Runner_Version::getReleaseChannel()
+        );
 
         $tempFilename = tempnam(sys_get_temp_dir(), 'phpunit') . '.phar';
 
@@ -855,13 +815,7 @@ class PHPUnit_TextUI_Command
             unset($phar);
             rename($tempFilename, $localFilename);
             unlink($caFile);
-        } catch (Throwable $_e) {
-            $e = $_e;
-        } catch (Exception $_e) {
-            $e = $_e;
-        }
-
-        if (isset($e)) {
+        } catch (Exception $e) {
             unlink($caFile);
             unlink($tempFilename);
             print " done\n\n" . $e->getMessage() . "\n";
@@ -869,26 +823,6 @@ class PHPUnit_TextUI_Command
         }
 
         print " done\n";
-        exit(PHPUnit_TextUI_TestRunner::SUCCESS_EXIT);
-    }
-
-    /**
-     * @since Method available since Release 4.8.0
-     */
-    protected function handleVersionCheck()
-    {
-        $this->printVersionString();
-
-        $latestVersion = file_get_contents('https://phar.phpunit.de/latest-version-of/phpunit');
-        $isOutdated    = version_compare($latestVersion, PHPUnit_Runner_Version::id(), '>');
-
-        if ($isOutdated) {
-            print "You are not using the latest version of PHPUnit.\n";
-            print 'Use "phpunit --self-upgrade" to install PHPUnit ' . $latestVersion . "\n";
-        } else {
-            print "You are using the latest version of PHPUnit.\n";
-        }
-
         exit(PHPUnit_TextUI_TestRunner::SUCCESS_EXIT);
     }
 
@@ -967,7 +901,6 @@ Configuration Options:
   --bootstrap <file>        A "bootstrap" PHP file that is run before the tests.
   -c|--configuration <file> Read configuration from XML file.
   --no-configuration        Ignore default configuration file (phpunit.xml).
-  --no-coverage             Ignore code coverage configuration.
   --include-path <path(s)>  Prepend PHP's include_path with given path(s).
   -d key[=value]            Sets a php.ini value.
 
@@ -979,9 +912,7 @@ Miscellaneous Options:
 EOT;
 
         if (defined('__PHPUNIT_PHAR__')) {
-            print "\n  --check-version           Check whether PHPUnit is the latest version.";
-            print "\n  --self-update             Update PHPUnit to the latest version within the same\n                            release series.\n";
-            print "\n  --self-upgrade            Upgrade PHPUnit to the latest version.\n";
+            print "\n  --self-update             Update PHPUnit to the latest version.\n";
         }
     }
 

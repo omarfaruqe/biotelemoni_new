@@ -9,6 +9,10 @@
  */
 
 /**
+ * @author     Sebastian Bergmann <sebastian@phpunit.de>
+ * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @link       http://www.phpunit.de/
  * @since      Class available since Release 3.3.0
  */
 class Util_ConfigurationTest extends PHPUnit_Framework_TestCase
@@ -103,7 +107,6 @@ class Util_ConfigurationTest extends PHPUnit_Framework_TestCase
                 'file' =>
                 array(
                   0 => '/path/to/file',
-                  1 => '/path/to/file',
                 ),
               ),
               'exclude' =>
@@ -314,7 +317,6 @@ class Util_ConfigurationTest extends PHPUnit_Framework_TestCase
 
     /**
      * @backupGlobals enabled
-     *
      * @see https://github.com/sebastianbergmann/phpunit/issues/1181
      */
     public function testHandlePHPConfigurationDoesNotOverwrittenExistingEnvArrayVariables()
@@ -328,7 +330,6 @@ class Util_ConfigurationTest extends PHPUnit_Framework_TestCase
 
     /**
      * @backupGlobals enabled
-     *
      * @see https://github.com/sebastianbergmann/phpunit/issues/1181
      */
     public function testHandlePHPConfigurationDoesNotOverriteVariablesFromPutEnv()
@@ -419,7 +420,6 @@ class Util_ConfigurationTest extends PHPUnit_Framework_TestCase
      * @covers PHPUnit_Util_Configuration::getPHPUnitConfiguration
      * @covers PHPUnit_Util_Configuration::getTestSuiteConfiguration
      * @covers PHPUnit_Util_Configuration::getFilterConfiguration
-     *
      * @uses   PHPUnit_Util_Configuration::getInstance
      */
     public function testWithEmptyConfigurations()

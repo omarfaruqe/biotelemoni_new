@@ -495,8 +495,6 @@ class LaravelExcelReader {
         // Only read
         $this->reader->setReadDataOnly(true);
 
-        $break = false;
-
         // Start the chunking
         for ($startRow = 0; $startRow < $totalRows; $startRow += $chunkSize)
         {
@@ -514,16 +512,11 @@ class LaravelExcelReader {
             $results = $this->get()->slice($startIndex, $chunkSize);
 
             // Do a callback
-            if(is_callable($callback)) {
-                $break = call_user_func($callback, $results);
-            }
+            if(is_callable($callback))
+                call_user_func($callback, $results);
 
             $this->_reset();
             unset($this->excel, $results);
-
-            if ($break === true) {
-                break;
-            }
         }
     }
 
@@ -972,7 +965,12 @@ class LaravelExcelReader {
      */
     public function getFileName()
     {
-        return pathinfo($this->file, PATHINFO_FILENAME);
+        $filename = $this->file;
+        $segments = explode('/', $filename);
+        $file = end($segments);
+        list($name, $ext) = explode('.', $file);
+
+        return $name;
     }
 
     /**

@@ -153,17 +153,6 @@ class CellWriter {
     }
 
     /**
-     * Set the text rotation
-     * @param integer $alignment
-     * @return  CellWriter
-     */
-    public function setTextRotation($degrees)
-    {
-      $style = $this->getCellStyle()->getAlignment()->setTextRotation($degrees);
-      return $this;
-    }
-
-    /**
      * Set the alignment
      * @param string $alignment
      * @return  CellWriter

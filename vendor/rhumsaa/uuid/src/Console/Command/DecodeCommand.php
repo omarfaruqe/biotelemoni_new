@@ -64,6 +64,7 @@ class DecodeCommand extends Command
         ));
 
         if ($uuid->getVariant() != Uuid::RFC_4122) {
+
             $table->addRows(array(
                 array('decode:', 'variant:', 'Not an RFC 4122 UUID'),
             ));

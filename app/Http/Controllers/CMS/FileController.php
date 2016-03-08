@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use View;
 use Sugar\User;
 use Validator;
+use Mail;
 
 class FileController extends CmsController
 {
@@ -115,7 +116,21 @@ class FileController extends CmsController
 
     public function download($file)
     {
-        $file_name = User::uploadFilePath() . $file->name;
+        //dd($file);
+        //  $email = \Mail::send('emails.test', array('name' => 'The New Topic'),   function($message){
+        //     $message->to('omarfaruk.sust@gmail.com', 'The New Topic')->subject('Test Email');
+        // });
+        $subject=['name'=>'omarfaruk'];
+         $email = Mail::send('emails.test', ['key' => 'value'], function($message) use ($subject) {
+          // note: if you don't set this, it will use the defaults from config/mail.php
+          $message->from('amrakotha@gmail.com', 'Sender Name');
+          $message->to('omarfaruk.sust@gmail.com', 'John Smith')
+            ->subject($subject);
+         });
+
+        dd($email);
+
+        /*$file_name = User::uploadFilePath() . $file->name;
         $headers = array(
             'Content-Type: application/csv',
             'Content-Disposition:attachment; filename="test.csv"',
@@ -125,7 +140,8 @@ class FileController extends CmsController
         $input['download_counter']=$file->download_counter+1;
         File::where('id', $file->id)->update(['download_counter' => $file->download_counter+1]);
 
-        return Response::download($file_name, 'output.csv');
+        return Response::download($file_name, 'output.csv');*/
+
     }
 
     public function share($file)

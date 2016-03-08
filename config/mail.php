@@ -15,7 +15,7 @@ return [
 	|
 	*/
 
-	'driver' => env('MAIL_DRIVER', 'smtp'),
+	'driver' => env('MAIL_DRIVER', 'mail'),
 	//'driver' => env('MAIL_DRIVER', 'mailgun'),
 
 	/*
@@ -29,7 +29,7 @@ return [
 	|
 	*/
 
-	'host' => env('MAIL_HOST', 'smtp.gmail.com'),
+	'host' => env('MAIL_HOST', 'smtp.zoho.com'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -42,7 +42,7 @@ return [
 	|
 	*/
 
-	'port' => env('MAIL_PORT', 587),
+	'port' => env('MAIL_PORT', 465),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -121,8 +121,8 @@ return [
 	|
 	*/
 
-	//'pretend' => false,
-	'pretend' => true,
+	'pretend' => false,
+	//'pretend' => true,
 
 
 ];

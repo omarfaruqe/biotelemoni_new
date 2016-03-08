@@ -66,9 +66,8 @@ class UserController extends CmsController {
 		// attach the role to user
 		$user->roles()->attach($role->id);
 
-		\Mail::send('emails.welcome', ['user' => $user], function ($message) use ($user) {
-            $message->from(Auth::user()->email, 'Biotelemoni');
-
+        $email = \Mail::send('emails.welcome', array('user' => $user), function($message) use ($user){
+            $message->from('admin@Biotelemoni.com', 'Sender Name');
             $message->to($user->email, $user->name)->subject('Your Account');
         });
 

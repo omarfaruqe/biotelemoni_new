@@ -2,10 +2,10 @@
 @extends('templates.auth')
 
 @section('content')
-
-    <div class="container" style="background-iamge: url({{URL::asset('images/background.jpg')}})">
+    <div class="bg-img">
+    <div class="container">
         <div class="row">
-            <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <div class="col-sm-6 col-md-4 col-md-offset-4" style="margin-top: 100px;">
                 <h1 class="text-center login-title">Sign in to Biotelemoni</h1>
                 @if (count($errors) > 0)
                     <div class="alert alert-danger">
@@ -35,6 +35,9 @@
 
 
             </div>
+
+
         </div>
+    </div>
     </div>
 @endsection

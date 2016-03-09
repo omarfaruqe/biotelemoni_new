@@ -1368,6 +1368,12 @@ pre code {
   padding-left: 15px;
   padding-right: 15px;
 }
+.bg-img {
+    background-image:url('http://biotelemoni.com/images/background.jpg');
+    background-repeat:repeat-x;
+    background-size:100% auto;
+}
+
 @media (min-width: 768px) {
   .container {
     width: 750px;
